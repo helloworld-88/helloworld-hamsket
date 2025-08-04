@@ -1,4 +1,4 @@
-Ext.define('Hamsket.model.Service', {
+Ext.define('HelloWorld.model.Service', {
 	 extend: 'Ext.data.Model'
 
 	,identifier: 'sequential'

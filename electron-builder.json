@@ -1,6 +1,6 @@
 {
-	"productName": "Hamsket",
-	"appId": "com.thegoddessinari.hamsket",
+	"productName": "HelloWorld",
+	"appId": "com.cn.helloword",
 	"asar": true,
 	"publish": null,
 	"mac": {
@@ -8,7 +8,7 @@
 		"target": ["default"]
 	},
 	"dmg": {
-		"title": "Hamsket",
+		"title": "HelloWorld",
 		"iconSize": 128,
 		"contents": [
 			{
@@ -39,6 +39,6 @@
 	"directories": {
 		"buildResources": "resources/installer/",
 		"output": "dist/",
-		"app": "build/production/Hamsket/"
+		"app": "build/production/HelloWorld/"
 	}
 }

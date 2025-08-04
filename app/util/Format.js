@@ -1,7 +1,7 @@
 /**
  * Created by vsxed on 7/11/2016.
  */
-Ext.define('Hamsket.util.Format', {
+Ext.define('HelloWorld.util.Format', {
 	 singleton: true
 
 	,formatNumber(n) {

@@ -1,7 +1,7 @@
 /**
  * Singleton class to handle the global unread counter.
  */
-Ext.define('Hamsket.util.UnreadCounter', {
+Ext.define('HelloWorld.util.UnreadCounter', {
 
 	singleton: true,
 
@@ -28,7 +28,7 @@ Ext.define('Hamsket.util.UnreadCounter', {
 		 * Sets the application's unread count to tracked unread count.
 		 */
 		function updateAppUnreadCounter() {
-			Hamsket.app.setTotalNotifications(totalUnreadCount);
+			HelloWorld.app.setTotalNotifications(totalUnreadCount);
 		}
 
 		/**

@@ -1,4 +1,4 @@
-Ext.define('Hamsket.store.ServicesList', {
+Ext.define('HelloWorld.store.ServicesList', {
 	 extend: 'Ext.data.Store'
 	,alias: 'store.serviceslist'
 
@@ -6,7 +6,7 @@ Ext.define('Hamsket.store.ServicesList', {
 		'Ext.data.proxy.LocalStorage'
 	]
 
-	,model: 'Hamsket.model.ServiceList'
+	,model: 'HelloWorld.model.ServiceList'
 
 	,proxy: {
 		 type: 'memory'
@@ -28,7 +28,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: locale['services[0]']
 			,url: 'https://web.whatsapp.com/'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const elements=document.querySelectorAll("#pane-side ._23LrM");let count=0;for(const i of elements){const gp=i.parentNode.parentNode;0===gp.querySelectorAll('#pane-side *[data-icon="muted"]').length&&count++}hamsket.updateBadge(count)};setInterval(checkUnread,1e3);let unregister_queue=[];navigator.serviceWorker.getRegistrations().then(registrations=>{for(const registration of registrations)unregister_queue.push(registration.unregister());return unregister_queue}).then(queue=>{}).catch(err=>{});`
+			,js_unread: `let checkUnread=()=>{const elements=document.querySelectorAll("#pane-side ._23LrM");let count=0;for(const i of elements){const gp=i.parentNode.parentNode;0===gp.querySelectorAll('#pane-side *[data-icon="muted"]').length&&count++}helloworld.updateBadge(count)};setInterval(checkUnread,1e3);let unregister_queue=[];navigator.serviceWorker.getRegistrations().then(registrations=>{for(const registration of registrations)unregister_queue.push(registration.unregister());return unregister_queue}).then(queue=>{}).catch(err=>{});`
 		},
 		{
 			 id: 'slack'
@@ -37,7 +37,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: locale['services[1]']
 			,url: 'https://___.slack.com/'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const indirectSelector=".p-channel_sidebar__channel--unread:not(.p-channel_sidebar__channel--muted)",indirect=document.querySelectorAll(indirectSelector).length;let direct=0;const badges=document.querySelectorAll(indirectSelector+" > .p-channel_sidebar__badge");for(const badge of badges){const i=parseInt(badge.innerHTML);direct+=isNaN(i)?0:i}hamsket.updateBadge(direct,indirect)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const indirectSelector=".p-channel_sidebar__channel--unread:not(.p-channel_sidebar__channel--muted)",indirect=document.querySelectorAll(indirectSelector).length;let direct=0;const badges=document.querySelectorAll(indirectSelector+" > .p-channel_sidebar__badge");for(const badge of badges){const i=parseInt(badge.innerHTML);direct+=isNaN(i)?0:i}helloworld.updateBadge(direct,indirect)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'noysi'
@@ -56,7 +56,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,type: 'messaging'
 			,titleBlink: true
 			,note: 'To enable desktop notifications, you have to go to Options inside Messenger.'
-			,js_unread: `const titleTest=new RegExp("^\\((\\d+)\\)"),checkUnread=()=>{let count=0;const isNotification=titleTest.test(document.title);isNotification?count=hamsket.parseIntOrZero(titleTest.exec(document.title)[1]):(count=document.querySelectorAll("._5fx8:not(._569x),._1ht3:not(._569x)").length,0===count&&(count=document.querySelectorAll(".pq6dq46d.is6700om.qu0x051f.esr5mh6w.e9989ue4.r7d6kgcz.s45kfl79.emlxlaya.bkmhp75w.spb7xbtv.cyypbtt7.fwizqjfa").length));const messageRequests=document.querySelector("._5nxf");messageRequests&&(count+=hamsket.parseIntOrZero(messageRequests.textContent)),hamsket.updateBadge(count)};setInterval(checkUnread,3e3);`
+			,js_unread: `const titleTest=new RegExp("^\\((\\d+)\\)"),checkUnread=()=>{let count=0;const isNotification=titleTest.test(document.title);isNotification?count=helloworld.parseIntOrZero(titleTest.exec(document.title)[1]):(count=document.querySelectorAll("._5fx8:not(._569x),._1ht3:not(._569x)").length,0===count&&(count=document.querySelectorAll(".pq6dq46d.is6700om.qu0x051f.esr5mh6w.e9989ue4.r7d6kgcz.s45kfl79.emlxlaya.bkmhp75w.spb7xbtv.cyypbtt7.fwizqjfa").length));const messageRequests=document.querySelector("._5nxf");messageRequests&&(count+=helloworld.parseIntOrZero(messageRequests.textContent)),helloworld.updateBadge(count)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'skype'
@@ -65,7 +65,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: locale['services[4]']
 			,url: 'https://web.skype.com/'
 			,type: 'messaging'
-			,note: 'Text and Audio calls are supported only. <a href="https://github.com/TheGoddessInari/hamsket/wiki/Skype" target="_blank">Read more...</a>'
+			,note: 'Text and Audio calls are supported only. <a href="https://github.com/TheGoddessInari/helloworld/wiki/Skype" target="_blank">Read more...</a>'
 		},
 		{
 			 id: 'hangouts'
@@ -76,7 +76,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,type: 'messaging'
 			,titleBlink: true
 			,manual_notifications: true
-			,js_unread: `const checkUnread=()=>{const myframe=document.querySelector("#hangout-landing-chat iframe"),mydocument=myframe&&"contentDocument"in myframe?myframe.contentDocument:myframe.contentWindow.document,count=mydocument?mydocument.body.querySelectorAll(".ee").length:0;hamsket.updateBadge(count)};setInterval(checkUnread,3e3);`
+			,js_unread: `const checkUnread=()=>{const myframe=document.querySelector("#hangout-landing-chat iframe"),mydocument=myframe&&"contentDocument"in myframe?myframe.contentDocument:myframe.contentWindow.document,count=mydocument?mydocument.body.querySelectorAll(".ee").length:0;helloworld.updateBadge(count)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'hipchat'
@@ -85,7 +85,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: locale['services[6]']
 			,url: 'https://___.hipchat.com/chat'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("hc-badge");let t=0;for(let i of e)t+=parseInt(i.innerHTML.trim());hamsket.updateBadge(t)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("hc-badge");let t=0;for(let i of e)t+=parseInt(i.innerHTML.trim());helloworld.updateBadge(t)};setInterval(checkUnread,3e3);`
 			,custom_domain: true
 		},
 		{
@@ -95,7 +95,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: locale['services[7]']
 			,url: 'https://web.telegram.org/'
 			,type: 'messaging'
-			,js_unread: `const checkUnread=()=>{const unread_messages=document.querySelectorAll(".badge.unread:not(.is-muted), .Badge.unread:not(.muted)");let count=0;for(const unread of unread_messages)count+=hamsket.parseIntOrZero(unread.textContent.trim());hamsket.updateBadge(count)};setInterval(checkUnread,3e3);`
+			,js_unread: `const checkUnread=()=>{const unread_messages=document.querySelectorAll(".badge.unread:not(.is-muted), .Badge.unread:not(.muted)");let count=0;for(const unread of unread_messages)count+=helloworld.parseIntOrZero(unread.textContent.trim());helloworld.updateBadge(count)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'wechat'
@@ -113,7 +113,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,url: 'https://mail.google.com/mail/?labs=0'
 			,type: 'email'
 			,allow_popups: true
-			,js_unread: `let checkUnread=()=>{const a=document.getElementsByClassName("aim")[0].textContent.split(":");hamsket.updateBadge(parseInt(a[a.length-1].replace(/[^0-9]/g,"")))};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const a=document.getElementsByClassName("aim")[0].textContent.split(":");helloworld.updateBadge(parseInt(a[a.length-1].replace(/[^0-9]/g,"")))};setInterval(checkUnread,3e3);`
 			,note: 'To enable desktop notifications, you have to go to Settings inside Gmail. <a href="https://support.google.com/mail/answer/1075549?ref_topic=3394466" target="_blank">Read more...</a>'
 		},
 		{
@@ -133,7 +133,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,url: 'https://web.groupme.com/signin'
 			,type: 'messaging'
 			,note: 'To enable desktop notifications, you have to go to Options inside GroupMe. To count unread messages, be sure to be in Chats.'
-			,js_unread: `let checkUnread=()=>{const a=document.querySelectorAll(".badge-count:not(.ng-hide)");let b=0;for(let i of a)b+=parseInt(i.innerHTML.trim());hamsket.updateBadge(b)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const a=document.querySelectorAll(".badge-count:not(.ng-hide)");let b=0;for(let i of a)b+=parseInt(i.innerHTML.trim());helloworld.updateBadge(b)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'grape'
@@ -150,7 +150,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: locale['services[14]']
 			,url: 'https://gitter.im/'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("unread-indicator");let c=0;for(let i of e)c+=parseInt(i.innerHTML.trim(),10)||0;hamsket.updateBadge(c)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("unread-indicator");let c=0;for(let i of e)c+=parseInt(i.innerHTML.trim(),10)||0;helloworld.updateBadge(c)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'steam'
@@ -160,7 +160,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,url: 'https://steamcommunity.com/chat'
 			,type: 'messaging'
 			,note: 'To enable desktop notifications, you have to go to Options inside Steam Chat.'
-			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("FriendMessageCount");let t=0;for(let i of e){const iTrim=parseInt(i.innerHTML.trim());t+=isNaN(iTrim)||"none"===i.parentNode.style.display?0:iTrim}hamsket.updateBadge(t)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("FriendMessageCount");let t=0;for(let i of e){const iTrim=parseInt(i.innerHTML.trim());t+=isNaN(iTrim)||"none"===i.parentNode.style.display?0:iTrim}helloworld.updateBadge(t)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'discord'
@@ -170,7 +170,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,url: 'https://discordapp.com/login'
 			,type: 'messaging'
 			,titleBlink: true
-			,js_unread: `const getMentionCount=badges=>{let alerts=0;for(const badge of badges)alerts+=hamsket.parseIntOrZero(badge.textContent);return alerts},getServerUnread=badges=>{let alerts=0;for(const badge of badges)alerts+="1"===badge.style.opacity&&"8px"===badge.style.height?1:0;return alerts},checkUnread=()=>{const mentions=document.querySelectorAll('[class*="lowerBadge-"] > [class*="numberBadge-"]'),unread=document.querySelectorAll('[class*="pill-"] > [class*="item-"]'),direct=getMentionCount(mentions),indirect=getServerUnread(unread);hamsket.updateBadge(direct,indirect)};setInterval(checkUnread,3e3);`
+			,js_unread: `const getMentionCount=badges=>{let alerts=0;for(const badge of badges)alerts+=helloworld.parseIntOrZero(badge.textContent);return alerts},getServerUnread=badges=>{let alerts=0;for(const badge of badges)alerts+="1"===badge.style.opacity&&"8px"===badge.style.height?1:0;return alerts},checkUnread=()=>{const mentions=document.querySelectorAll('[class*="lowerBadge-"] > [class*="numberBadge-"]'),unread=document.querySelectorAll('[class*="pill-"] > [class*="item-"]'),direct=getMentionCount(mentions),indirect=getServerUnread(unread);helloworld.updateBadge(direct,indirect)};setInterval(checkUnread,3e3);`
 			,note: 'To enable desktop notifications, you have to go to Options inside Discord.'
 		},
 		{
@@ -181,7 +181,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,url: 'https://mail.live.com/'
 			,type: 'email'
 			,manual_notifications: true
-			,js_unread: `let checkUnread=()=>{const fav=document.querySelector(".ms-FocusZone [role=tree] i[data-icon-name=Inbox]").parentNode.parentNode.lastElementChild,folders=document.querySelectorAll(".ms-FocusZone [role=tree]")[1].children[1].querySelector("span span"),textContent=fav?fav.textContent:folders?folders.textContent:0,count=hamsket.parseIntOrZero(textContent);hamsket.updateBadge(count)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const fav=document.querySelector(".ms-FocusZone [role=tree] i[data-icon-name=Inbox]").parentNode.parentNode.lastElementChild,folders=document.querySelectorAll(".ms-FocusZone [role=tree]")[1].children[1].querySelector("span span"),textContent=fav?fav.textContent:folders?folders.textContent:0,count=helloworld.parseIntOrZero(textContent);helloworld.updateBadge(count)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'outlook365'
@@ -191,7 +191,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,url: 'https://outlook.office.com/owa/'
 			,type: 'email'
 			,manual_notifications: true
-			,js_unread: `let checkUnread=()=>{const inbox=document.querySelector(".ms-FocusZone i[data-icon-name=Inbox]").parentNode.parentNode.querySelector("span span"),result=inbox?inbox.textContent:0,count=hamsket.parseIntOrZero(result);hamsket.updateBadge(count)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const inbox=document.querySelector(".ms-FocusZone i[data-icon-name=Inbox]").parentNode.parentNode.querySelector("span span"),result=inbox?inbox.textContent:0,count=helloworld.parseIntOrZero(result);helloworld.updateBadge(count)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'yahoo'
@@ -242,7 +242,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: locale['services[23]']
 			,url: 'https://mail.missiveapp.com/login'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("unseen-count");let t=0;for(let i of e)t+=parseInt(i.innerHTML.trim());hamsket.updateBadge(t)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("unseen-count");let t=0;for(let i of e)t+=parseInt(i.innerHTML.trim());helloworld.updateBadge(t)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'rocketchat'
@@ -324,7 +324,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: locale['services[34]']
 			,url: 'https://app.mysms.com/'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("unread");let t=0;for(let i of e)t+=parseInt(i.firstChild.innerHTML.trim());hamsket.updateBadge(t)};"https://app.mysms.com/#login"===document.baseURI&&(document.getElementsByClassName("innerPanel")[0].rows[0].style.display="none",document.getElementsByClassName("innerPanel")[0].rows[1].cells[0].firstElementChild.style.display="none",document.getElementsByClassName("msisdnLoginPanel")[0].style.display="inline"),setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("unread");let t=0;for(let i of e)t+=parseInt(i.firstChild.innerHTML.trim());helloworld.updateBadge(t)};"https://app.mysms.com/#login"===document.baseURI&&(document.getElementsByClassName("innerPanel")[0].rows[0].style.display="none",document.getElementsByClassName("innerPanel")[0].rows[1].cells[0].firstElementChild.style.display="none",document.getElementsByClassName("msisdnLoginPanel")[0].style.display="inline"),setInterval(checkUnread,3e3);`
 			,note: 'You have to use this service by signing in with your mobile number.'
 		},
 		{
@@ -334,7 +334,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: locale['services[35]']
 			,url: 'https://web.icq.com/'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{let total=0;const counters=document.getElementsByClassName("icq-msg-counter");for(let counter of counters)total+=parseInt("block"===counter.style.display?counter.innerHTML.trim():0);hamsket.updateBadge(total)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{let total=0;const counters=document.getElementsByClassName("icq-msg-counter");for(let counter of counters)total+=parseInt("block"===counter.style.display?counter.innerHTML.trim():0);helloworld.updateBadge(total)};setInterval(checkUnread,3e3);`
 			,titleBlink: true
 		},
 		{
@@ -393,7 +393,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: locale['services[43]']
 			,url: '___'
 			,type: 'email'
-			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("count");let t=0;for(let i of e)t+=parseInt(i.innerHTML.match(/[0-9]+/g));hamsket.updateBadge(t)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("count");let t=0;for(let i of e)t+=parseInt(i.innerHTML.match(/[0-9]+/g));helloworld.updateBadge(t)};setInterval(checkUnread,3e3);`
 			,note: 'To enable desktop notifications and automatic mail check, you have to go to Options inside Horde.'
 		},
 		{
@@ -403,7 +403,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: locale['services[44]']
 			,url: '___'
 			,type: 'email'
-			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("leftunseen");let t=0;for(let i of e)t+=parseInt(i.innerHTML);hamsket.updateBadge(t)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("leftunseen");let t=0;for(let i of e)t+=parseInt(i.innerHTML);helloworld.updateBadge(t)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'zohoemail'
@@ -422,7 +422,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: locale['services[46]']
 			,url: 'https://chat.zoho.___/'
 			,type: 'messaging'
-			,js_unread: `NotifyByTitle.show=function(){},NotifyByTitle.start=function(){},NotifyByTitle.stop=function(){};let checkUnread=()=>{let t=0;$(".msgnotify").each(function(){let i=parseInt($(this).html());t+=isNaN(i)?0:i}),hamsket.updateBadge(t)};setInterval(checkUnread,3e3);`
+			,js_unread: `NotifyByTitle.show=function(){},NotifyByTitle.start=function(){},NotifyByTitle.stop=function(){};let checkUnread=()=>{let t=0;$(".msgnotify").each(function(){let i=parseInt($(this).html());t+=isNaN(i)?0:i}),helloworld.updateBadge(t)};setInterval(checkUnread,3e3);`
 			,note: 'Add .com the other relevant TLD into the URL field depending on your location.'
 		},
 		{
@@ -449,7 +449,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Yandex is a free webmail service with unlimited mail storage, protection from viruses and spam, access from web interface, etc.'
 			,url: 'https://mail.yandex.com/'
 			,type: 'email'
-			,js_unread: `let checkUnread=()=>{const t=parseInt($(".mail-MessagesFilters-Item_unread .mail-LabelList-Item_count").html());hamsket.updateBadge(isNaN(t)?0:t)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const t=parseInt($(".mail-MessagesFilters-Item_unread .mail-LabelList-Item_count").html());helloworld.updateBadge(isNaN(t)?0:t)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'irccloud'
@@ -458,7 +458,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'IRCCloud is a modern IRC client that keeps you connected, with none of the baggage.'
 			,url: 'https://www.irccloud.com/'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{let t=0;const badges=document.querySelectorAll(".bufferBadges > .badge");for(let n of badges)t+=n.textContent?parseInt(n.textContent,10):0;hamsket.updateBadge(t)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{let t=0;const badges=document.querySelectorAll(".bufferBadges > .badge");for(let n of badges)t+=n.textContent?parseInt(n.textContent,10):0;helloworld.updateBadge(t)};setInterval(checkUnread,3e3);`
 			,custom_domain: true
 		},
 		{
@@ -468,7 +468,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Ryver is a team communication tool that organizes team collaboration, chats, files, and even emails into a single location, for any size team, for FREE.'
 			,url: 'https://___.ryver.com/'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{hamsket.updateBadge(parseInt(document.getElementsByClassName("scene-space-tab-button--flash").length))};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{helloworld.updateBadge(parseInt(document.getElementsByClassName("scene-space-tab-button--flash").length))};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'kiwi'
@@ -477,7 +477,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'KiwiIRC makes Web IRC easy. A hand-crafted IRC client that you can enjoy. Designed to be used easily and freely.'
 			,url: 'https://kiwiirc.com/client'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{let a=0,b=!1;$(".activity").each(function(){a+=parseInt($(this).html())});const msgs=$(".panel[style*='display:block'] .msg");for(let msg of msgs)b?a++:$(this).hasClass("last_seen")&&(b=!0);hamsket.updateBadge(a)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{let a=0,b=!1;$(".activity").each(function(){a+=parseInt($(this).html())});const msgs=$(".panel[style*='display:block'] .msg");for(let msg of msgs)b?a++:$(this).hasClass("last_seen")&&(b=!0);helloworld.updateBadge(a)};setInterval(checkUnread,3e3);`
 			,custom_domain: true
 		},
 		/* TODO: fix kiwi */
@@ -488,7 +488,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'iCloud makes sure you always have the latest versions of your most important things — documents, photos, notes, contacts, and more — on all your devices. It can even help you locate a missing iPhone, iPad, iPod touch or Mac.'
 			,url: 'https://www.icloud.com/#mail'
 			,type: 'email'
-			,js_unread: `let checkUnread=()=>{hamsket.updateBadge("none"===document.querySelector(".current-app").querySelector(".sb-badge").style.display?0:parseInt(document.querySelector(".current-app").querySelector(".text").innerHTML.trim()))};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{helloworld.updateBadge("none"===document.querySelector(".current-app").querySelector(".sb-badge").style.display?0:parseInt(document.querySelector(".current-app").querySelector(".text").innerHTML.trim()))};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'rainloop'
@@ -497,7 +497,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'RainLoop Webmail - Simple, modern & fast web-based email client.'
 			,url: '___'
 			,type: 'email'
-			,js_unread: `let checkUnread=()=>{const t=document.querySelectorAll(".e-item .e-link:not(.hidden) .badge.pull-right.count");let e=0;for(let i of t){let iTrim=parseInt(i.textContent.trim());iTrim%1==0&&"block"===window.getComputedStyle(i).display&&(e+=parseInt(iTrim))}hamsket.updateBadge(e)};setInterval(checkUnread,1e3);`
+			,js_unread: `let checkUnread=()=>{const t=document.querySelectorAll(".e-item .e-link:not(.hidden) .badge.pull-right.count");let e=0;for(let i of t){let iTrim=parseInt(i.textContent.trim());iTrim%1==0&&"block"===window.getComputedStyle(i).display&&(e+=parseInt(iTrim))}helloworld.updateBadge(e)};setInterval(checkUnread,1e3);`
 		},
 		{
 			 id: 'amium'
@@ -522,7 +522,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Over 500 million people rely on Zimbra and enjoy enterprise-class open source email collaboration at the lowest TCO in the industry. Discover the benefits!'
 			,url: '___'
 			,type: 'email'
-			,js_unread: `let checkUnread=()=>{hamsket.updateBadge(appCtxt.getById(ZmFolder.ID_INBOX).numUnread)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{helloworld.updateBadge(appCtxt.getById(ZmFolder.ID_INBOX).numUnread)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'kaiwa'
@@ -531,7 +531,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'A modern and Open Source Web client for XMPP.'
 			,url: '___'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{let count=0;for(let node of document.getElementsByClassName("unread"))node.innerHTML&&(count+=parseInt(node.innerHTML));hamsket.updateBadge(count)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{let count=0;for(let node of document.getElementsByClassName("unread"))node.innerHTML&&(count+=parseInt(node.innerHTML));helloworld.updateBadge(count)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'movim'
@@ -540,7 +540,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Movim is a decentralized social network, written in PHP and HTML5 and based on the XMPP standard protocol.'
 			,url: 'https://___.movim.eu/'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const a=document.getElementsByClassName("color dark");let b=0;for(let i of a){const c=i.getElementsByClassName("counter");for(let ii of c){const iiTrim=parseInt(ii.textContent.trim());iiTrim%1==0&&(b+=iiTrim)}}hamsket.updateBadge(b)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const a=document.getElementsByClassName("color dark");let b=0;for(let i of a){const c=i.getElementsByClassName("counter");for(let ii of c){const iiTrim=parseInt(ii.textContent.trim());iiTrim%1==0&&(b+=iiTrim)}}helloworld.updateBadge(b)};setInterval(checkUnread,3e3);`
 			,custom_domain: true
 		},
 		{
@@ -558,7 +558,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Element is a simple and elegant collaboration environment that gathers all of your different conversations and app integrations into one single app.'
 			,url: 'https://app.element.io/'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const indirect=document.querySelectorAll(".mx_RoomTile_badgeContainer > .mx_NotificationBadge_visible.mx_NotificationBadge_dot > .mx_NotificationBadge_count").length,q=document.querySelectorAll(".mx_RoomSublist_badgeContainer > .mx_NotificationBadge_visible:not(.mx_NotificationBadge_dot) > .mx_NotificationBadge_count");let direct=0;for(let i of q)direct+=hamsket.parseIntOrZero(i.textContent);hamsket.updateBadge(direct,indirect)};setInterval(checkUnread,1e3);`
+			,js_unread: `let checkUnread=()=>{const indirect=document.querySelectorAll(".mx_RoomTile_badgeContainer > .mx_NotificationBadge_visible.mx_NotificationBadge_dot > .mx_NotificationBadge_count").length,q=document.querySelectorAll(".mx_RoomSublist_badgeContainer > .mx_NotificationBadge_visible:not(.mx_NotificationBadge_dot) > .mx_NotificationBadge_count");let direct=0;for(let i of q)direct+=helloworld.parseIntOrZero(i.textContent);helloworld.updateBadge(direct,indirect)};setInterval(checkUnread,1e3);`
 			,custom_domain: true
 		},
 		{
@@ -617,7 +617,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Flock is a free enterprise tool for business communication. Packed with tons of productivity features, Flock drives efficiency and boosts speed of execution.'
 			,url: 'https://web.flock.co/'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const a=document.getElementsByClassName("unreadMessages no-unread-mentions has-unread");let b=0;for(const i of a)b+=parseInt(i.innerHTML.trim());hamsket.updateBadge(b)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const a=document.getElementsByClassName("unreadMessages no-unread-mentions has-unread");let b=0;for(const i of a)b+=parseInt(i.innerHTML.trim());helloworld.updateBadge(b)};setInterval(checkUnread,3e3);`
 
 		},
 		{
@@ -643,7 +643,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			description: 'Career-oriented social networking',
 			url: 'https://www.xing.com/messages/conversations',
 			type: 'messaging',
-			js_unread: `let checkUnread=()=>{let count=null;const notificationElement=document.querySelector('[data-update="unread_conversations"]');notificationElement&&"none"!==notificationElement.style.display&&(count=parseInt(notificationElement.textContent.trim(),10)),hamsket.updateBadge(count)};setInterval(checkUnread,3e3);`
+			js_unread: `let checkUnread=()=>{let count=null;const notificationElement=document.querySelector('[data-update="unread_conversations"]');notificationElement&&"none"!==notificationElement.style.display&&(count=parseInt(notificationElement.textContent.trim(),10)),helloworld.updateBadge(count)};setInterval(checkUnread,3e3);`
 		},
 		{
 			id: 'threema',
@@ -652,7 +652,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			description: 'Seriously secure messaging',
 			url: 'https://web.threema.ch/',
 			type: 'messaging',
-			js_unread: `!function(){let unreadCount=0;function checkUnread(){let newUnread=0;try{const webClientService=angular.element(document.documentElement).injector().get("WebClientService"),conversations=webClientService.conversations.conversations;conversations.forEach(function(conversation){newUnread+=conversation.unreadCount})}catch(e){}newUnread!==unreadCount&&(unreadCount=newUnread,hamsket.updateBadge(unreadCount))}setInterval(checkUnread,3e3),checkUnread()}();`
+			js_unread: `!function(){let unreadCount=0;function checkUnread(){let newUnread=0;try{const webClientService=angular.element(document.documentElement).injector().get("WebClientService"),conversations=webClientService.conversations.conversations;conversations.forEach(function(conversation){newUnread+=conversation.unreadCount})}catch(e){}newUnread!==unreadCount&&(unreadCount=newUnread,helloworld.updateBadge(unreadCount))}setInterval(checkUnread,3e3),checkUnread()}();`
 		},
 		{
 			 id: 'workplace'
@@ -686,7 +686,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Self-hosted web IRC client.'
 			,url: '___'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const a=document.getElementsByClassName("badge highlight");let b=0;for(let i of a){const iTrim=parseInt(i.textContent.trim());iTrim%1==0&&(b+=iTrim)}hamsket.updateBadge(b)};setInterval(checkUnread,1e3);`
+			,js_unread: `let checkUnread=()=>{const a=document.getElementsByClassName("badge highlight");let b=0;for(let i of a){const iTrim=parseInt(i.textContent.trim());iTrim%1==0&&(b+=iTrim)}helloworld.updateBadge(b)};setInterval(checkUnread,1e3);`
 		},
 		{
 			 id: 'linkedin'
@@ -703,7 +703,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Zyptonite is the ultimate cyber secure communication tool for enterprise customers designed to address the need to securely communicate via voice, video, and chat, and transfer files and information across a global mobile workforce.'
 			,url: 'https://app.zyptonite.com/'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const a=document.getElementsByClassName("z-messages");let b=0;for(let i of a)b+=parseInt(i.innerHTML.trim());hamsket.updateBadge(b)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const a=document.getElementsByClassName("z-messages");let b=0;for(let i of a)b+=parseInt(i.innerHTML.trim());helloworld.updateBadge(b)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'fastmail'
@@ -712,7 +712,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Secure, reliable email hosting for businesses, families and professionals. Premium email with no ads, excellent spam protection and rapid personal support.'
 			,url: 'https://www.fastmail.com/mail/'
 			,type: 'email'
-			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("v-FolderSource-badge");let t=0;for(const i of e){const iTrim=parseInt(i.innerHTML.trim());t+=isNaN(iTrim)?0:iTrim}hamsket.updateBadge(t)};setInterval(checkUnread,3e3),setTimeout(function(){O.WindowController.openExternal=function(a){let b=document.createElement("a");b.href=a,b.setAttribute("target","_blank"),b.click()}},3e3);`
+			,js_unread: `let checkUnread=()=>{const e=document.getElementsByClassName("v-FolderSource-badge");let t=0;for(const i of e){const iTrim=parseInt(i.innerHTML.trim());t+=isNaN(iTrim)?0:iTrim}helloworld.updateBadge(t)};setInterval(checkUnread,3e3),setTimeout(function(){O.WindowController.openExternal=function(a){let b=document.createElement("a");b.href=a,b.setAttribute("target","_blank"),b.click()}},3e3);`
 			,note: 'To enable desktop notifications, you have to go to Settings inside FastMail.'
 		},
 		{
@@ -756,7 +756,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Simple and Easy App for Messaging on VK.'
 			,url: 'https://m.vk.com/im'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{hamsket.updateBadge(parseInt(document.getElementById("l_msg").innerText.replace(/[^0-9]+/g,"")))};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{helloworld.updateBadge(parseInt(document.getElementById("l_msg").innerText.replace(/[^0-9]+/g,"")))};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'mastodon'
@@ -775,7 +775,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Say goodbye to email. Take your online collaboration to the next level with Teamwork Chat and keep all team discussions in one place. Chat to your team in a fun and informal way with Teamwork Chat.'
 			,url: 'https://___/chat'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{hamsket.updateBadge(parseInt(document.getElementsByClassName("sidebar-notification-indicator").length>0?document.getElementsByClassName("sidebar-notification-indicator")[0].innerHTML:0))};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{helloworld.updateBadge(parseInt(document.getElementsByClassName("sidebar-notification-indicator").length>0?document.getElementsByClassName("sidebar-notification-indicator")[0].innerHTML:0))};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'clocktweets'
@@ -792,7 +792,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Intercom makes it easy to communicate with your customers personally, at scale. Designed to feel like the messaging apps you use every day, Intercom lets you talk to consumers almost anywhere: inside your app, on your website, across social media and via email.'
 			,url: 'https://app.intercom.io'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const a=document.getElementsByClassName("unread")[0];hamsket.updateBadge(t=void 0===a?0:parseInt(a.textContent.replace(/[^0-9]/g,"")))};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const a=document.getElementsByClassName("unread")[0];helloworld.updateBadge(t=void 0===a?0:parseInt(a.textContent.replace(/[^0-9]/g,"")))};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'Kune'
@@ -809,7 +809,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'A free phone number for life.  Stay in touch from any screen.  Use your free number to text, call, and check voicemail  all from one app. Plus, Google Voice works on all of your devices so you can connect and communicate how you want.'
 			,url: 'https://voice.google.com'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{const e=document.querySelectorAll("a[gv-test-id='sidenav-calls'] .navItemBadge, a[gv-test-id='sidenav-messages'] .navItemBadge, a[gv-test-id='sidenav-voicemail'] .navItemBadge");let n=0;e.forEach(r=>{hamsket.isInViewport(r)&&(n+=hamsket.parseIntOrZero(r.innerHTML))}),hamsket.updateBadge(n)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{const e=document.querySelectorAll("a[gv-test-id='sidenav-calls'] .navItemBadge, a[gv-test-id='sidenav-messages'] .navItemBadge, a[gv-test-id='sidenav-voicemail'] .navItemBadge");let n=0;e.forEach(r=>{helloworld.isInViewport(r)&&(n+=helloworld.parseIntOrZero(r.innerHTML))}),helloworld.updateBadge(n)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'sandstorm'
@@ -853,7 +853,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Stride is the complete team communication solution with group messaging, video meetings, and built-in collaboration tools.'
 			,url: 'https://app.stride.com/___'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{let direct=0,indirect=0;const conversations=document.querySelectorAll(".conversations-nav .nav-item .activity-indicator");for(let n of conversations)n.classList.contains("has-count")?direct+=parseInt(n.innerHTML):indirect++;hamsket.updateBadge(direct,indirect)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{let direct=0,indirect=0;const conversations=document.querySelectorAll(".conversations-nav .nav-item .activity-indicator");for(let n of conversations)n.classList.contains("has-count")?direct+=parseInt(n.innerHTML):indirect++;helloworld.updateBadge(direct,indirect)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'hangoutschat'
@@ -864,7 +864,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,type: 'messaging'
 			,titleBlink: true
 			,manual_notifications: true
-			,js_unread: `let checkUnread=()=>{hamsket.updateBadge(document.querySelectorAll(".SSPGKf.EyyDtb.Q6oXP:not(.oCHqfe) .eM5l9e.FVKzAb").length)};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{helloworld.updateBadge(document.querySelectorAll(".SSPGKf.EyyDtb.Q6oXP:not(.oCHqfe) .eM5l9e.FVKzAb").length)};setInterval(checkUnread,3e3);`
 		},
 		{
 			 id: 'androidmessages'
@@ -873,7 +873,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Text on your computer with Messages for web.'
 			,url: 'https://messages.google.com/web'
 			,type: 'messaging'
-			,js_unread: `let checkUnread=()=>{hamsket.updateBadge(Array.prototype.slice.apply(document.querySelectorAll(".text-content.unread")).reduce((c,b) => !b.querySelector(".notifications-off")+c,0))};setInterval(checkUnread,3e3);`
+			,js_unread: `let checkUnread=()=>{helloworld.updateBadge(Array.prototype.slice.apply(document.querySelectorAll(".text-content.unread")).reduce((c,b) => !b.querySelector(".notifications-off")+c,0))};setInterval(checkUnread,3e3);`
 		},
 		{
 			id: 'instagram'
@@ -882,7 +882,7 @@ Ext.define('Hamsket.store.ServicesList', {
 			,description: 'Instagram is a photo-sharing app for Android and iOS.'
 			,url: ' https://www.instagram.com'
 			,type: 'messaging'
-			,js_unread: `const checkUnread=()=>{const element=document.querySelector('a[href^="/direct/inbox"]');hamsket.updateBadge(hamsket.parseIntOrZero(element.textContent))};setInterval(checkUnread,3e3);`
+			,js_unread: `const checkUnread=()=>{const element=document.querySelector('a[href^="/direct/inbox"]');helloworld.updateBadge(helloworld.parseIntOrZero(element.textContent))};setInterval(checkUnread,3e3);`
 		},
 	]
 });

@@ -4,20 +4,20 @@
 
 const chai = require('chai');
 const expect = chai.expect;
-const HamsketTestHelper = require('../../helpers/HamsketTestHelper');
+const HelloWorldTestHelper = require('../../helpers/HelloWorldTestHelper');
 
-describe('Hamsket window', function() {
+describe('HelloWorld window', function() {
 
 	/**
-	 * The Hamsket test helper does common stuff.
+	 * The HelloWorld test helper does common stuff.
 	 *
 	 * @type {module.exports}
 	 */
-	const hamsketTestHelper = new HamsketTestHelper();
+	const HelloWorldTestHelper = new HelloWorldTestHelper();
 
-	it('should have "Hamsket" in the title', function () {
-		return hamsketTestHelper.app.client.browserWindow.getTitle().then(function(title) {
-			expect(title).to.contain('Hamsket');
+	it('should have "HelloWorld" in the title', function () {
+		return HelloWorldTestHelper.app.client.browserWindow.getTitle().then(function(title) {
+			expect(title).to.contain('HelloWorld');
 			return Promise.resolve();
 		});
 	})

@@ -16,19 +16,19 @@ mixins, etc.).
 
 This folder contains Sass files defining CSS rules corresponding to classes
 included in the application's JavaScript code build. By default, files in this 
-folder are mapped to the application's root namespace, 'Hamsket'. This is set in
+folder are mapped to the application's root namespace, 'HelloWorld'. This is set in
 `"app.json"`:
 
     "sass": {
-        "namespace": "Hamsket"
+        "namespace": "HelloWorld"
     }
 
 ### ./sass/var
 
 This folder contains Sass files defining Sass variables corresponding to classes
 included in the application's JavaScript code build. By default, files in this 
-folder are mapped to the application's root namespace, 'Hamsket' in the same way
-as `"Hamsket/sass/src"`.
+folder are mapped to the application's root namespace, 'HelloWorld' in the same way
+as `"HelloWorld/sass/src"`.
 
 ## Slicing
 

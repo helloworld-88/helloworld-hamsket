@@ -1,9 +1,9 @@
-Ext.define('Hamsket.view.add.AddController', {
+Ext.define('HelloWorld.view.add.AddController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.add-add',
 
 	requires: [
-		'Hamsket.util.UnreadCounter'
+		'HelloWorld.util.UnreadCounter'
 	],
 
 	doCancel( btn ) {
@@ -101,7 +101,7 @@ Ext.define('Hamsket.view.add.AddController', {
 			}
 
 			if ( showNotify ) {
-				Ext.Msg.confirm(locale['app.window[8]'].toUpperCase(), 'Hamsket needs to reload the service to apply your changes. Do you want to do it now?', function( btnId ) {
+				Ext.Msg.confirm(locale['app.window[8]'].toUpperCase(), 'HelloWorld needs to reload the service to apply your changes. Do you want to do it now?', function( btnId ) {
 					if ( btnId === 'yes' ) view.reloadService();
 				});
 			}
@@ -116,7 +116,7 @@ Ext.define('Hamsket.view.add.AddController', {
 				formValues.url = formValues.cycleValue === '1' ? win.record.get('url').replace('___', formValues.url) : formValues.url;
 			}
 
-			const service = Ext.create('Hamsket.model.Service', {
+			const service = Ext.create('HelloWorld.model.Service', {
 				 type: win.record.get('id')
 				,logo: formValues.logo
 				,name: formValues.serviceName

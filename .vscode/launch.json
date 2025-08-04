@@ -5,19 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Hamsket: Main",
+            "name": "HelloWorld: Main",
             "type": "node",
             "request": "launch",
             "protocol": "inspector",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
             "args": [
                 "--remote-debugging-port=9223",
-                "build/production/Hamsket"
+                "build/production/HelloWorld"
             ],
             "outFiles": [ "${workspaceFolder}/build/production/**/*.js" ]
         },
         {
-            "name": "Hamsket: Renderer",
+            "name": "HelloWorld: Renderer",
             "type": "chrome",
             "request": "attach",
             "port": 9223,
@@ -27,10 +27,10 @@
     ],
     "compounds": [
         {
-            "name": "Hamsket: All",
+            "name": "HelloWorld: All",
             "configurations": [
-                "Hamsket: Main",
-                "Hamsket: Renderer"
+                "HelloWorld: Main",
+                "HelloWorld: Renderer"
             ]
         }
     ]

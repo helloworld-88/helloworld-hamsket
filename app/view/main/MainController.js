@@ -1,4 +1,4 @@
-Ext.define('Hamsket.view.main.MainController', {
+Ext.define('HelloWorld.view.main.MainController', {
 	 extend: 'Ext.app.ViewController'
 
 	,alias: 'controller.main'
@@ -27,11 +27,11 @@ Ext.define('Hamsket.view.main.MainController', {
 
 		localStorage.setItem('last_active_service', newTab.id);
 
-		if ( newTab.id === 'hamsketTab' ) {
-			if ( Hamsket.app.getTotalNotifications() > 0 ) {
-				document.title = 'Hamsket ('+ Hamsket.app.getTotalNotifications() +')';
+		if ( newTab.id === 'helloworldTab' ) {
+			if ( HelloWorld.app.getTotalNotifications() > 0 ) {
+				document.title = 'HelloWorld ('+ HelloWorld.app.getTotalNotifications() +')';
 			} else {
-				document.title = 'Hamsket';
+				document.title = 'HelloWorld';
 			}
 			return;
 		}
@@ -43,15 +43,15 @@ Ext.define('Hamsket.view.main.MainController', {
 		newTab.focus();
 
 		// Update the main window so it includes the active tab title.
-		if ( Hamsket.app.getTotalNotifications() > 0 ) {
-			document.title = `Hamsket (${Hamsket.app.getTotalNotifications()}) - ${Ext.String.htmlEncode(newTab.record.get('name'))}`;
+		if ( HelloWorld.app.getTotalNotifications() > 0 ) {
+			document.title = `HelloWorld (${HelloWorld.app.getTotalNotifications()}) - ${Ext.String.htmlEncode(newTab.record.get('name'))}`;
 		} else {
-			document.title = `Hamsket - ${Ext.String.htmlEncode(newTab.record.get('name'))}`;
+			document.title = `HelloWorld - ${Ext.String.htmlEncode(newTab.record.get('name'))}`;
 		}
 	}
 
 	,updatePositions(tabPanel, tab) {
-		if ( tab.id === 'hamsketTab' || tab.id === 'tbfill' ) return true;
+		if ( tab.id === 'helloworldTab' || tab.id === 'tbfill' ) return true;
 
 		console.log('Updating Tabs positions...');
 
@@ -59,7 +59,7 @@ Ext.define('Hamsket.view.main.MainController', {
 		let align = 'left';
 		store.suspendEvent('childmove');
 		Ext.each(tabPanel.items.items, function(t, i) {
-			if ( t.id !== 'hamsketTab' && t.id !== 'tbfill' && t.record.get('enabled') ) {
+			if ( t.id !== 'helloworldTab' && t.id !== 'tbfill' && t.record.get('enabled') ) {
 				const rec = store.getById(t.record.get('id'));
 				if ( align === 'right' ) i--;
 				if (rec) {
@@ -126,7 +126,7 @@ Ext.define('Hamsket.view.main.MainController', {
 	}
 
 	,onNewServiceSelect( view, record, item, index, e ) {
-		Ext.create('Hamsket.view.add.Add', {
+		Ext.create('HelloWorld.view.add.Add', {
 			record: record
 		});
 	}
@@ -151,7 +151,7 @@ Ext.define('Hamsket.view.main.MainController', {
 		}
 
 		const config = ipc.sendSync('getConfig');
-		if ( config.default_service === rec.get('id') ) ipc.send('setConfig', Ext.apply(config, { default_service: 'hamsketTab' }));
+		if ( config.default_service === rec.get('id') ) ipc.send('setConfig', Ext.apply(config, { default_service: 'helloworldTab' }));
 
 		function clearData(session, tab, resolve) {
 			session.flushStorageData();
@@ -196,7 +196,7 @@ Ext.define('Hamsket.view.main.MainController', {
 		const me = this;
 
 		// Clear counter for unread messaging
-		document.title = 'Hamsket';
+		document.title = 'HelloWorld';
 
 		const store = Ext.getStore('Services');
 
@@ -234,14 +234,14 @@ Ext.define('Hamsket.view.main.MainController', {
 				.finally(function() {
 					store.resumeEvent('childmove');
 					store.resumeEvent('remove');
-					document.title = 'Hamsket';
+					document.title = 'HelloWorld';
 				});
 			});
 		}
 	}
 
 	,configureService( gridView, rowIndex, colIndex, col, e, rec, rowEl ) {
-		Ext.create('Hamsket.view.add.Add', {
+		Ext.create('HelloWorld.view.add.Add', {
 			 record: rec
 			,service: Ext.getStore('ServicesList').getById(rec.get('type'))
 			,edit: true
@@ -339,7 +339,7 @@ Ext.define('Hamsket.view.main.MainController', {
 		});
 	}
 
-	,lockHamsket(btn) {
+	,lockHelloWorld(btn) {
 		const me = this;
 
 		if ( ipc.sendSync('getConfig').master_password ) {
@@ -365,12 +365,12 @@ Ext.define('Hamsket.view.main.MainController', {
 									,message: locale['app.window[25]']
 									,icon: Ext.Msg.WARNING
 									,buttons: Ext.Msg.OK
-									,fn: me.lockHamsket
+									,fn: me.lockHelloWorld
 								});
 								return false;
 							}
 
-							setLock(Hamsket.util.MD5.encypt(text));
+							setLock(HelloWorld.util.MD5.encypt(text));
 						}
 					});
 					msgbox2.textField.inputEl.dom.type = 'password';
@@ -380,7 +380,7 @@ Ext.define('Hamsket.view.main.MainController', {
 		}
 
 		function setLock(text) {
-			console.info('Lock Hamsket:', 'Enabled');
+			console.info('Lock HelloWorld:', 'Enabled');
 
 			// Save encrypted password in localStorage to show locked when app is reopen
 			localStorage.setItem('locked', text);
@@ -396,8 +396,8 @@ Ext.define('Hamsket.view.main.MainController', {
 		const me = this;
 
 		const validateFn = function() {
-			if ( localStorage.getItem('locked') === Hamsket.util.MD5.encypt(winLock.down('textfield').getValue()) ) {
-				console.info('Lock Hamsket:', 'Disabled');
+			if ( localStorage.getItem('locked') === HelloWorld.util.MD5.encypt(winLock.down('textfield').getValue()) ) {
+				console.info('Lock HelloWorld:', 'Disabled');
 				localStorage.removeItem('locked');
 				winLock.close();
 				me.lookupReference('disturbBtn').setPressed(false);
@@ -474,7 +474,7 @@ Ext.define('Hamsket.view.main.MainController', {
 	,openPreferences( btn ) {
 		const me = this;
 
-		Ext.create('Hamsket.view.preferences.Preferences').show();
+		Ext.create('HelloWorld.view.preferences.Preferences').show();
 	}
 
 });

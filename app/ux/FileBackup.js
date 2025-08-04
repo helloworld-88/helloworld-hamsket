@@ -1,4 +1,4 @@
-Ext.define('Hamsket.ux.FileBackup', {
+Ext.define('HelloWorld.ux.FileBackup', {
 	singleton: true,
 	constructor() {
 		const me = this;
@@ -7,7 +7,7 @@ Ext.define('Hamsket.ux.FileBackup', {
 		me.path = me.remote.require('path');
 		me.fs = me.remote.require('fs');
 		me.userPath = me.remote.app.getPath('userData');
-		me.defaultFileName = 'hamsket-backup.json';
+		me.defaultFileName = 'helloworld-backup.json';
 		me.myDefaultPath = me.userPath + me.path.sep + me.defaultFileName;
 	},
 	backupConfiguration(callback) {
@@ -54,7 +54,7 @@ Ext.define('Hamsket.ux.FileBackup', {
 					if (services) {
 						Ext.cq1('app-main').getController().removeAllServices(true, function() {
 							Ext.each(services, function(s) {
-								const service = Ext.create('Hamsket.model.Service', s);
+								const service = Ext.create('HelloWorld.model.Service', s);
 								service_store.add(service);
 							});
 							service_store.sync();

@@ -1,11 +1,11 @@
 /**
- * This file is loaded in the service web views to provide a Hamsket API.
+ * This file is loaded in the service web views to provide a HelloWorld API.
  */
 
 const { ipcRenderer } = require('electron');
 
 /**
- * Make the Hamsket API available via a global "hamsket" variable.
+ * Make the HelloWorld API available via a global "hamsket" variable.
  *
  * @type {{}}
  */
@@ -54,7 +54,7 @@ window.hamsket.isInViewport = function(node) {
 
 
 /**
- * Override to add notification click event to display Hamsket window and activate service tab
+ * Override to add notification click event to display HelloWorld window and activate service tab
  */
 const NativeNotification = Notification;
 Notification = function(title, options) {

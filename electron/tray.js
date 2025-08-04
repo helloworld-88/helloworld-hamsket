@@ -8,7 +8,7 @@ exports.create = function(win, config) {
 	if (process.platform === 'darwin' || appIcon || config.get('window_display_behavior') === 'show_taskbar' ) return;
 
 	const locale = require(path.join(app.getAppPath(), '/resources/languages/'+config.get('locale')));
-	const iconName = process.platform === 'linux' || process.platform === 'darwin' ? 'IconTray.png' : 'Icon.ico';
+	const iconName = 'IconTray.png';
 	const iconPath = path.join(app.getAppPath(), `/resources/${iconName}`);
 	const icon = nativeImage.createFromPath(iconPath);
 
@@ -31,7 +31,7 @@ exports.create = function(win, config) {
 	]);
 
 	appIcon = new Tray(icon);
-	appIcon.setToolTip('Hamsket');
+	appIcon.setToolTip('HelloWorld');
 	appIcon.setContextMenu(contextMenu);
 
 	switch (process.platform) {
@@ -65,11 +65,7 @@ exports.setBadge = function(messageCount, showUnreadTray) {
 	if (process.platform === 'darwin' || !appIcon) return;
 
 	let iconName;
-	if (process.platform === 'linux') {
-		iconName = messageCount > 0 && showUnreadTray ? 'IconTrayUnread.png' : 'IconTray.png';
-	} else {
-		iconName = messageCount > 0 && showUnreadTray ? 'IconTrayUnread.ico' : 'Icon.ico';
-	}
+	iconName = messageCount > 0 && showUnreadTray ? 'IconTrayUnread.png' : 'IconTray.png';
 
 	const iconPath = path.join(app.getAppPath(), `/resources/${iconName}`);
 	const icon = nativeImage.createFromPath(iconPath);

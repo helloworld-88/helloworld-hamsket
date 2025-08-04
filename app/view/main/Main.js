@@ -1,11 +1,11 @@
-Ext.define('Hamsket.view.main.Main', {
+Ext.define('HelloWorld.view.main.Main', {
 	 extend: 'Ext.tab.Panel'
 	,requires: [
-		 'Hamsket.view.main.MainController'
-		,'Hamsket.view.main.MainModel'
-		,'Hamsket.ux.WebView'
-		,'Hamsket.ux.mixin.Badge'
-		,'Hamsket.view.add.Add'
+		 'HelloWorld.view.main.MainController'
+		,'HelloWorld.view.main.MainModel'
+		,'HelloWorld.ux.WebView'
+		,'HelloWorld.ux.mixin.Badge'
+		,'HelloWorld.view.add.Add'
 		,'Ext.ux.TabReorderer'
 	]
 
@@ -39,7 +39,7 @@ Ext.define('Hamsket.view.main.Main', {
 	,items: [
 		{
 			 icon: 'resources/IconTray@2x.png'
-			,id: 'hamsketTab'
+			,id: 'helloworldTab'
 			,closable: false
 			,reorderable: false
 			,autoScroll: true
@@ -252,8 +252,8 @@ Ext.define('Hamsket.view.main.Main', {
 						 glyph: 'XF023@FontAwesome'
 						,text: locale['app.main[19]']
 						,tooltip: locale['app.main[20]']+'<br/><b>'+locale['app.main[18]']+': Alt+F2</b>'
-						,handler: 'lockHamsket'
-						,id: 'lockHamsketBtn'
+						,handler: 'lockHelloWorld'
+						,id: 'lockHelloWorldBtn'
 					}
 					,'->'
 					,{
@@ -261,16 +261,16 @@ Ext.define('Hamsket.view.main.Main', {
 						,glyph: 'XF0C7@FontAwesome'
 						,id: 'backupBtn'
 						,tooltip: 'Backup services to disk'
-						,scope: Hamsket.ux.FileBackup
-						,handler: Hamsket.ux.FileBackup.backupConfiguration
+						,scope: HelloWorld.ux.FileBackup
+						,handler: HelloWorld.ux.FileBackup.backupConfiguration
 					}
 					,{
 						text: 'Restore'
 					   ,glyph: 'XF115@FontAwesome'
 					   ,id: 'restoreBtn'
 					   ,tooltip: 'Restore services from disk'
-					   ,scope: Hamsket.ux.FileBackup
-					   ,handler: Hamsket.ux.FileBackup.restoreConfiguration
+					   ,scope: HelloWorld.ux.FileBackup
+					   ,handler: HelloWorld.ux.FileBackup.restoreConfiguration
 				   }
 				   ,{
 						 tooltip: locale['preferences[0]']
@@ -293,14 +293,8 @@ Ext.define('Hamsket.view.main.Main', {
 							,glyph: 'XF234@FontAwesome'
 							,href: 'https://github.com/sponsors/TheGoddessInari'
 						}
+
 					]
-					 /* TODO: Translation
-						,{
-							 text: 'Translation'
-							,glyph: 'XF0AC@FontAwesome'
-							,href: 'https://crowdin.com/project/hamsket/invite'
-						}
-					]*/
 				}
 				,'->'
 				,{
@@ -318,15 +312,15 @@ Ext.define('Hamsket.view.main.Main', {
 						}
 						,{
 							 glyph: 'XF082@FontAwesome'
-							,href: 'https://www.facebook.com/TheGoddessInari'
+							,href: 'https://www.helloword.com.cn'
 						}
 						,{
 							 glyph: 'XF099@FontAwesome'
-							,href: 'https://www.twitter.com/TheGoddessInari'
+							,href: 'https://www.helloword.com.cn'
 						}
 						,{
 							 glyph: 'XF09B@FontAwesome'
-							,href: 'https://www.github.com/TheGoddessInari/hamsket'
+							,href: 'https://www.helloword.com.cn'
 						}
 					]
 				}

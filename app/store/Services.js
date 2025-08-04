@@ -1,4 +1,4 @@
-Ext.define('Hamsket.store.Services', {
+Ext.define('HelloWorld.store.Services', {
 	 extend: 'Ext.data.Store'
 	,alias: 'store.services'
 
@@ -6,7 +6,7 @@ Ext.define('Hamsket.store.Services', {
 		'Ext.data.proxy.LocalStorage'
 	]
 
-	,model: 'Hamsket.model.Service'
+	,model: 'HelloWorld.model.Service'
 
 	,autoLoad: true
 	,autoSync: true
@@ -68,7 +68,7 @@ Ext.define('Hamsket.store.Services', {
 				case 'last':
 					Ext.cq1('app-main').setActiveTab(localStorage.getItem('last_active_service'));
 					break;
-				case 'hamsketTab':
+				case 'helloworldTab':
 					break;
 				default:
 					if ( Ext.getCmp('tab_'+config.default_service) ) Ext.cq1('app-main').setActiveTab('tab_'+config.default_service);

@@ -1,4 +1,4 @@
-Ext.define('Hamsket.model.ServiceList', {
+Ext.define('HelloWorld.model.ServiceList', {
 	 extend: 'Ext.data.Model'
 
 	,fields: [{

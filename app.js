@@ -1,11 +1,11 @@
 // Sencha App
 Ext.setGlyphFontFamily('FontAwesome');
 Ext.application({
-	 name: 'Hamsket'
+	 name: 'HelloWorld'
 
-	,extend: 'Hamsket.Application'
+	,extend: 'HelloWorld.Application'
 
-	,autoCreateViewport: 'Hamsket.view.main.Main'
+	,autoCreateViewport: 'HelloWorld.view.main.Main'
 });
 
 // auto update logic
@@ -13,21 +13,21 @@ const ipc = require('electron').ipcRenderer;
 
 ipc.on('showAbout', function(event, message) {
 	if(!Ext.cq1('about')) {
-		Ext.create('Hamsket.view.main.About');
+		Ext.create('HelloWorld.view.main.About');
 	}
 });
 ipc.on('showPreferences', function(event, message) {
 	if (!Ext.cq1('preferences')) {
-		 Ext.create('Hamsket.view.preferences.Preferences').show();
+		 Ext.create('HelloWorld.view.preferences.Preferences').show();
 	}
 });
 ipc.on('autoUpdater:check-update', function() {
-	Hamsket.app.checkUpdate();
+	HelloWorld.app.checkUpdate();
 });
 ipc.on('autoUpdater:update-not-available', function() {
 	Ext.Msg.show({
 		 title: 'You are up to date!'
-		,message: 'You have the latest version of Hamsket.'
+		,message: 'You have the latest version of HelloWorld.'
 		,icon: Ext.Msg.INFO
 		,buttons: Ext.Msg.OK
 	});
@@ -35,7 +35,7 @@ ipc.on('autoUpdater:update-not-available', function() {
 ipc.on('autoUpdater:update-available', function() {
 	Ext.Msg.show({
 		 title: 'New Version available!'
-		,message: 'Please wait until Hamsket download the new version and ask you for install it.'
+		,message: 'Please wait until HelloWorld download the new version and ask you for install it.'
 		,icon: Ext.Msg.INFO
 		,buttons: Ext.Msg.OK
 	});
@@ -49,7 +49,7 @@ ipc.on('autoUpdater:update-downloaded', function(e, releaseNotes, releaseName, r
 			'->'
 			,{
 				 xtype: 'label'
-				,html: '<b>New version ready to install ('+releaseName+')!</b> It will be installed the next time Hamsket is relaunched.'
+				,html: '<b>New version ready to install ('+releaseName+')!</b> It will be installed the next time HelloWorld is relaunched.'
 			}
 			,{
 				 xtype: 'button'
@@ -60,7 +60,7 @@ ipc.on('autoUpdater:update-downloaded', function(e, releaseNotes, releaseName, r
 				 xtype: 'button'
 				,text: 'Changelog'
 				,ui: 'decline'
-				,href: 'https://github.com/TheGoddessInari/hamsket/releases/tag/'+releaseName
+				,href: 'https://github.com/helloworld-88/helloworld-hamsket/releases/tag/'+releaseName
 			}
 			,'->'
 			,{
@@ -125,7 +125,7 @@ ipc.on('setBadge', function(event, messageCount) {
 // Reload Current Service
 ipc.on('reloadCurrentService', function(e) {
 	const tab = Ext.cq1('app-main').getActiveTab();
-	if ( tab.id !== 'hamsketTab' ) tab.reloadService();
+	if ( tab.id !== 'helloworldTab' ) tab.reloadService();
 });
 
 ipc.on('tabFocusNext', function() {
@@ -188,8 +188,8 @@ ipc.on('toggleDoNotDisturb', function(key) {
 });
 
 ipc.on('lockWindow', function(key) {
-	const btn = Ext.getCmp('lockHamsketBtn');
-	Ext.cq1('app-main').getController().lockHamsket(btn);
+	const btn = Ext.getCmp('lockHelloWorldBtn');
+	Ext.cq1('app-main').getController().lockHelloWorld(btn);
 });
 
 // Focus the current service when Alt + Tab or click in webviews textfields

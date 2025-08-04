@@ -1,5 +1,3 @@
-'use strict';
-
 const {app, protocol, BrowserWindow, dialog, shell, Menu, ipcMain, nativeImage, session} = require('electron');
 // Tray
 const tray = require('./tray');
@@ -14,7 +12,7 @@ const fs = require("fs");
 const path = require('path');
 const contextMenu = require('electron-context-menu');
 
-// If 'data' folder exists in Hamsket's folder, set userdata, logs, and usercache path to there
+// If 'data' folder exists in HelloWorld's folder, set userdata, logs, and usercache path to there
 var basepath = app.getAppPath();
 if (fs.existsSync(path.join(basepath, 'data'))) {
 	app.setPath('userData', path.join(basepath, 'data', 'data'));
@@ -44,7 +42,7 @@ const config = new Config({
 		,proxyPassword: ''
 		,locale: 'en'
 		,enable_hidpi_support: false
-		,default_service: 'hamsketTab'
+		,default_service: 'helloworldTab'
 
 		,x: undefined
 		,y: undefined
@@ -66,18 +64,18 @@ if (config.get('enable_hidpi_support') && (process.platform === 'win32')) {
 app.commandLine.appendSwitch('disable-features', 'CrossOriginOpenerPolicy');
 
 // This must match the package name in package.json
-app.setAppUserModelId('com.thegoddessinari.hamsket');
+app.setAppUserModelId('com.cn.helloworld');
 
 app.userAgentFallback = app.userAgentFallback
 	.replace(`Electron/${process.versions.electron}`, ``)
-	.replace(`Hamsket/${app.getVersion()}`, ``);
+	.replace(`HelloWorld/${app.getVersion()}`, ``);
 
 // Menu
 const appMenu = require('./menu')(config);
 
 // Configure AutoLaunch
 const appLauncher = new AutoLaunch({
-	name: 'Hamsket',
+	name: 'HelloWorld',
 	isHidden: config.get('start_minimized')
 });
 appLauncher
@@ -102,7 +100,7 @@ let isQuitting = false;
 function createWindow () {
 	// Create the browser window using the state information
 	mainWindow = new BrowserWindow({
-		 title: 'Hamsket'
+		 title: 'HelloWorld'
 		,icon: nativeImage.createFromPath(path.join(app.getAppPath(), '/resources/Icon.' + (process.platform === 'linux' ? 'png' : 'ico')))
 		,backgroundColor: '#FFF'
 		,x: config.get('x')
@@ -115,7 +113,7 @@ function createWindow () {
 		,show: !config.get('start_minimized')
 		,acceptFirstMouse: true
 		,webPreferences: {
-			partition: 'persist:hamsket',
+			partition: 'persist:helloworld',
 			nodeIntegration: true,
 			webviewTag: true,
 			contextIsolation: false,
@@ -581,7 +579,7 @@ if ( config.get('proxy') ) {
 // Disable GPU Acceleration for Linux
 // to prevent White Page bug
 // https://github.com/electron/electron/issues/6139
-// https://github.com/saenzramiro/hamsket/issues/181
+// https://github.com/helloworld-88/helloworld-hamsket/issues/181
 if ( config.get('disable_gpu') ) app.disableHardwareAcceleration();
 
 // This method will be called when Electron has finished

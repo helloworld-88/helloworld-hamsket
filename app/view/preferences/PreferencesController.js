@@ -1,4 +1,4 @@
-Ext.define('Hamsket.view.preferences.PreferencesController', {
+Ext.define('HelloWorld.view.preferences.PreferencesController', {
 	 extend: 'Ext.app.ViewController'
 	,alias: 'controller.preferences-preferences'
 
@@ -26,7 +26,7 @@ Ext.define('Hamsket.view.preferences.PreferencesController', {
 			Ext.isEmpty(values.master_password1) === false &&
 			Ext.isEmpty(values.master_password2) === false) {
 
-			values.master_password = Hamsket.util.MD5.encypt(values.master_password1);
+			values.master_password = HelloWorld.util.MD5.encypt(values.master_password1);
 			delete values.master_password1;
 			delete values.master_password2;
 		}
@@ -48,7 +48,7 @@ Ext.define('Hamsket.view.preferences.PreferencesController', {
 		// Locale
 		if ( values.locale !== ipc.sendSync('getConfig').locale ) {
 			localStorage.setItem('locale', values.locale);
-			Ext.Msg.confirm('Action required', 'To change the language of Hamsket, you need to reload the app. Do you want to do it now?', function(btnId) {
+			Ext.Msg.confirm('Action required', 'To change the language of HelloWorld, you need to reload the app. Do you want to do it now?', function(btnId) {
 				if ( btnId === 'yes' ) ipc.send('relaunchApp');
 			});
 		}

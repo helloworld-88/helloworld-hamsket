@@ -34,5 +34,5 @@ npm-debug.log
 # Vagrant
 /.vagrant
 env.js
-hamsket_cfg.json
+helloworld_cfg.json
 languages.js

@@ -1,4 +1,3 @@
-'use strict';
 const os = require('os');
 const {app, BrowserWindow, Menu, shell}  = require('electron');
 const path = require('path');
@@ -20,19 +19,19 @@ module.exports = function(config) {
 		{
 			label: `&Facebook`,
 			click() {
-				shell.openExternal('https://www.facebook.com/TheGoddessInari');
+				shell.openExternal('https://www.helloword.com.cn');
 			}
 		},
 		{
 			label: `&Twitter`,
 			click() {
-				shell.openExternal('https://www.twitter.com/TheGoddessInari');
+				shell.openExternal('https://www.helloword.com.cn');
 			}
 		},
 		{
 			label: `&GitHub`,
 			click() {
-				shell.openExternal('https://www.github.com/TheGoddessInari/hamsket');
+				shell.openExternal('https://www.helloword.com.cn');
 			}
 		},
 		{
@@ -54,13 +53,13 @@ module.exports = function(config) {
 	> ${process.platform} ${process.arch} ${os.release()}
 	> ${buildversion}`;
 
-				shell.openExternal(`https://github.com/TheGoddessInari/hamsket/issues/new?body=${encodeURIComponent(body)}`);
+				shell.openExternal(`https://github.com/helloworld-88/helloworld-hamsket/issues/new?body=${encodeURIComponent(body)}`);
 			}
 		},
 		{
 			label: `&`+locale['menu.help[2]'],
 			click() {
-				shell.openExternal('https://gitter.im/TheGoddessInari/hamsket');
+				shell.openExternal('https://gitter.im/helloworld-88/helloworld-hamsket');
 			}
 		},
 		{
@@ -306,7 +305,7 @@ module.exports = function(config) {
 							}
 						},
 						{
-							label: `Lock Hamsket`,
+							label: `Lock HelloWorld`,
 							accelerator: 'Alt+F2',
 							click() {
 								sendAction('lockWindow');

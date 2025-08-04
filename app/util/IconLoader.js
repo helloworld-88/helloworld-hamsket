@@ -1,7 +1,7 @@
 /**
 * Singleton class to handle the custom icons for special services.
 */
-Ext.define('Hamsket.util.IconLoader', {
+Ext.define('HelloWorld.util.IconLoader', {
 
 	singleton: true,
 

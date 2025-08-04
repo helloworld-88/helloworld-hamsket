@@ -18,7 +18,7 @@
 
 <!-- Complete your environment -->
 
-> Hamsket: v0.X.X
+> HelloWorld: v0.X.X
 
 > OS: XXXX
 

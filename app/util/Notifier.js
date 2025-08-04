@@ -2,7 +2,7 @@
 /**
  * Singleton class for notification dispatching.
  */
-Ext.define('Hamsket.util.Notifier', {
+Ext.define('HelloWorld.util.Notifier', {
 
 	singleton: true,
 

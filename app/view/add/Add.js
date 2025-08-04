@@ -1,9 +1,9 @@
-Ext.define('Hamsket.view.add.Add',{
+Ext.define('HelloWorld.view.add.Add',{
 	 extend: 'Ext.window.Window'
 
 	,requires: [
-		 'Hamsket.view.add.AddController'
-		,'Hamsket.view.add.AddModel'
+		 'HelloWorld.view.add.AddController'
+		,'HelloWorld.view.add.AddModel'
 	]
 
 	,controller: 'add-add'

@@ -1,4 +1,4 @@
-Ext.define('Hamsket.util.MD5', {
+Ext.define('HelloWorld.util.MD5', {
 	 singleton: true
 
 	,encypt(s, raw, hexcase, chrsz) {

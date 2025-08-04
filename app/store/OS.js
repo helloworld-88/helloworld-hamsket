@@ -1,4 +1,4 @@
-Ext.define('Hamsket.store.OS', {
+Ext.define('HelloWorld.store.OS', {
     extend: 'Ext.data.Store'
    ,alias: 'store.os'
 

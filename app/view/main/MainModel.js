@@ -1,10 +1,10 @@
 
-Ext.define('Hamsket.view.main.MainModel', {
+Ext.define('HelloWorld.view.main.MainModel', {
 	 extend: 'Ext.app.ViewModel'
 
 	,alias: 'viewmodel.main'
 
 	,data: {
-		 name: 'Hamsket'
+		 name: 'HelloWorld'
 	}
 });

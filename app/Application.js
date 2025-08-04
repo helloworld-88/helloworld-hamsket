@@ -1,11 +1,11 @@
-Ext.define('Hamsket.Application', {
+Ext.define('HelloWorld.Application', {
 	 extend: 'Ext.app.Application'
 
-	,name: 'Hamsket'
+	,name: 'HelloWorld'
 
 	,requires: [
-		 'Hamsket.ux.FileBackup'
-		,'Hamsket.util.MD5'
+		 'HelloWorld.ux.FileBackup'
+		,'HelloWorld.util.MD5'
 		,'Ext.window.Toast'
 		,'Ext.util.Cookies'
 	]
@@ -30,7 +30,7 @@ Ext.define('Hamsket.Application', {
 		Ext.util.Cookies.set('version', require('@electron/remote').app.getVersion());
 
 		// Check for updates
-		if ( require('@electron/remote').process.argv.indexOf('--without-update') === -1 ) Hamsket.app.checkUpdate(true);
+		if ( require('@electron/remote').process.argv.indexOf('--without-update') === -1 ) HelloWorld.app.checkUpdate(true);
 
 		// Mouse Wheel zooming
 		document.addEventListener('mousewheel', function(e) {
@@ -53,7 +53,7 @@ Ext.define('Hamsket.Application', {
 		ipc.send('setDontDisturb', localStorage.getItem('dontDisturb')); // We store it in config
 
 		if ( localStorage.getItem('locked') ) {
-			console.info('Lock Hamsket:', 'Enabled');
+			console.info('Lock HelloWorld:', 'Enabled');
 			Ext.cq1('app-main').getController().showLockWindow();
 		}
 
@@ -65,15 +65,15 @@ Ext.define('Hamsket.Application', {
 		newValue = parseInt(newValue);
 		if ( newValue > 0 )	{
 			if ( Ext.cq1('app-main').getActiveTab().record ) {
-				document.title = `Hamsket (${Hamsket.util.Format.formatNumber(newValue)}) - ${Ext.String.htmlEncode(Ext.cq1('app-main').getActiveTab().record.get('name'))}`;
+				document.title = `HelloWorld (${HelloWorld.util.Format.formatNumber(newValue)}) - ${Ext.String.htmlEncode(Ext.cq1('app-main').getActiveTab().record.get('name'))}`;
 			} else {
-				document.title = `Hamsket (${Hamsket.util.Format.formatNumber(newValue)})`;
+				document.title = `HelloWorld (${HelloWorld.util.Format.formatNumber(newValue)})`;
 			}
 		} else {
 			if ( Ext.cq1('app-main') && Ext.cq1('app-main').getActiveTab().record ) {
-				document.title = `Hamsket - ${Ext.String.htmlEncode(Ext.cq1('app-main').getActiveTab().record.get('name'))}`;
+				document.title = `HelloWorld - ${Ext.String.htmlEncode(Ext.cq1('app-main').getActiveTab().record.get('name'))}`;
 			} else {
-				document.title = `Hamsket`;
+				document.title = `HelloWorld`;
 			}
 		}
 	}
@@ -81,7 +81,7 @@ Ext.define('Hamsket.Application', {
 	,checkUpdate(silence) {
 		console.info('Checking for updates...');
 		Ext.Ajax.request({
-			 url: 'https://api.github.com/repos/TheGoddessInari/hamsket/releases/latest'
+			 url: 'https://api.github.com/repos/helloworld-88/helloworld-hamsket/releases/latest'
 			,method: 'GET'
 			,success(response) {
 				const json = JSON.parse(response.responseText);
@@ -102,14 +102,14 @@ Ext.define('Hamsket.Application', {
 							,{
 								 xtype: 'button'
 								,text: locale['app.update[1]']
-								,href: 'https://github.com/TheGoddessInari/hamsket/releases/latest'
+								,href: 'https://github.com/helloworld-88/helloworld-hamsket/releases/latest'
 							}
 							,{
 								 xtype: 'button'
 								,text: locale['app.update[2]']
 								,ui: 'decline'
 								,tooltip: 'Click here to see more information about the new version.'
-								,href: 'https://github.com/TheGoddessInari/hamsket/releases/tag/'+updateVersion
+								,href: 'https://github.com/helloworld-88/helloworld-hamsket/releases/tag/'+updateVersion
 							}
 							,'->'
 							,{
