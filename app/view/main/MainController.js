@@ -10,9 +10,9 @@ Ext.define('HelloWorld.view.main.MainController', {
 		var helloworldTab = tabBar.items.findBy(function (item) {
 			return item.card && item.card.id === 'helloworldTab';
 		});
-		if (helloworldTab) {
-			helloworldTab.el.dom.style.cssText = 'display: none !important;';
-		}
+		// if (helloworldTab) {
+		// 	helloworldTab.el.dom.style.cssText = 'display: none !important;';
+		// }
 		tabPanel.setTabPosition(config.tabbar_location);
 		tabPanel.setTabRotation(0);
 

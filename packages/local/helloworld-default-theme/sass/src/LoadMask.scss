@@ -47,42 +47,44 @@
 }
 .x-tab-icon-left > .x-tab-icon-el-default,
 .x-tab-icon-right > .x-tab-icon-el-default {
-	width: 35px;
+	width: 30px;
 	background-size: 100%;
-	height: 35px;
-	margin-top: -7px;
+	height: 30px;
+	margin-top: -5px;
 }
 .x-tab-over.x-tab-default {
-	border-color: #deeafd;
-	background-color: #deeafd;
+	border-color: #EAEAEA;
+	background-color: #EAEAEA;
 }
 .x-tab.x-tab-active.x-tab-default {
-	border-color: #9cd4fd;
-	background-color: #9cd4fd;
+	border-color: #D3D3D3;
+	background-color: #D3D3D3;
 }
 .x-tab-default-top {
 	height: 60px;
 	width: 75px;
 	margin: 0 2px 0 2px !important;
-	background-color: #cfcfcf;
+	background-color: #F7F7F7;
 }
 .x-tab-default-right {
 	height: 60px;
 	width: 75px;
 	margin: 2px 0 2px 0 !important;
-	background-color: #d7dee3;
+	background-color: #F7F7F7;
 }
 .x-tab-default-bottom {
 	height: 60px;
 	width: 75px;
 	margin: 0 2px 0 2px !important;
-	background-color: #d7dee3;
+	background-color: #F7F7F7;
 }
 .x-tab-default-left {
 	height: 60px;
 	width: 75px;
-	margin: 2px 0 2px 0 !important;
-	background-color: #d7dee3;
+	margin: 0 0 0 0 !important;
+	background-color: #F7F7F7;
+	border-top-left-radius: 0 !important;
+	border-bottom-left-radius: 0 !important;
 }
 .x-tab-icon-el-default.x-tab-glyph {
 	font-size: 24px;
@@ -292,4 +294,7 @@
 	justify-content: flex-start;
 	flex-direction: column;
 	align-items: center;
+}
+.x-tab-bar-default-left>.x-tab-bar-body-default {
+	padding: 0 3px 6px 0;
 }

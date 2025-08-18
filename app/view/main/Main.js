@@ -259,7 +259,7 @@ Ext.define('HelloWorld.view.main.Main', {
 			],
 			tbar: {
 				xtype: 'toolbar',
-				height: 42,
+				height: 40,
 				ui: 'main',
 				enableOverflow: true,
 				overflowHandler: 'menu',
