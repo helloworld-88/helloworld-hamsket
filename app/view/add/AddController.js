@@ -2,97 +2,105 @@ Ext.define('HelloWorld.view.add.AddController', {
 	extend: 'Ext.app.ViewController',
 	alias: 'controller.add-add',
 
-	requires: [
-		'HelloWorld.util.UnreadCounter'
-	],
+	requires: ['HelloWorld.util.UnreadCounter'],
 
-	doCancel( btn ) {
+	doCancel(btn) {
 		const me = this;
 
 		me.getView().close();
-	}
+	},
 
-	,doSave( btn ) {
+	doSave(btn) {
 		const me = this;
 
 		const win = me.getView();
-		if ( !win.down('form').isValid() ) return false;
+		if (!win.down('form').isValid()) return false;
 
 		const formValues = win.down('form').getValues();
 
-		if ( win.edit ) {
+		if (win.edit) {
 			// Format data
-			if ( win.service.get('url').indexOf('___') >= 0 ) {
-				formValues.url = formValues.cycleValue === '1' ? win.service.get('url').replace('___', formValues.url) : formValues.url;
+			if (win.service.get('url').indexOf('___') >= 0) {
+				formValues.url =
+					formValues.cycleValue === '1'
+						? win.service.get('url').replace('___', formValues.url)
+						: formValues.url;
 			}
 
 			const oldData = win.record.getData();
 			win.record.set({
-				 logo: formValues.logo
-				,name: formValues.serviceName
-				,url: formValues.url
-				,align: formValues.align
-				,notifications: formValues.notifications
-				,muted: formValues.muted
-				,tabname: formValues.tabname
-				,displayTabUnreadCounter: formValues.displayTabUnreadCounter
-				,includeInGlobalUnreadCounter: formValues.includeInGlobalUnreadCounter
-				,trust: formValues.trust
-				,js_unread: formValues.js_unread
-				,custom_js: formValues.custom_js
-				,custom_css: formValues.custom_css
-				,custom_css_complex: formValues.custom_css_complex
-				,passive_event_listeners: formValues.passive_event_listeners
-				,slowed_timers: formValues.slowed_timers
-				,userAgent: formValues.userAgent
-				,os_override: formValues.os_override
-				,chrome_version: formValues.chrome_version
+				logo: formValues.logo,
+				name: formValues.serviceName,
+				url: formValues.url,
+				align: formValues.align,
+				notifications: formValues.notifications,
+				muted: formValues.muted,
+				tabname: formValues.tabname,
+				displayTabUnreadCounter: formValues.displayTabUnreadCounter,
+				includeInGlobalUnreadCounter: formValues.includeInGlobalUnreadCounter,
+				trust: formValues.trust,
+				js_unread: formValues.js_unread,
+				custom_js: formValues.custom_js,
+				custom_css: formValues.custom_css,
+				custom_css_complex: formValues.custom_css_complex,
+				passive_event_listeners: formValues.passive_event_listeners,
+				slowed_timers: formValues.slowed_timers,
+				userAgent: formValues.userAgent,
+				os_override: formValues.os_override,
+				chrome_version: formValues.chrome_version,
 			});
 
-			const view = Ext.getCmp('tab_'+win.record.get('id'));
+			const view = Ext.getCmp('tab_' + win.record.get('id'));
 
 			// Change the title of the Tab
-			view.setTitle( formValues.tabname ? Ext.String.htmlEncode(formValues.serviceName) : '' );
+			view.setTitle(
+				formValues.tabname ? Ext.String.htmlEncode(formValues.serviceName) : '',
+			);
 			// Change sound of the Tab
 			view.setAudioMuted(formValues.muted);
 			// Change notifications of the Tab
 			view.setNotifications(formValues.notifications);
 			// Change the icon of the Tab
-			if ( win.record.get('type') === 'custom' && oldData.logo !== formValues.logo ) Ext.getCmp('tab_'+win.record.get('id')).setConfig('icon', formValues.logo === '' ? 'resources/icons/custom.png' : formValues.logo);
+			if (
+				win.record.get('type') === 'custom' &&
+				oldData.logo !== formValues.logo
+			)
+				Ext.getCmp('tab_' + win.record.get('id')).setConfig(
+					'icon',
+					formValues.logo === ''
+						? 'resources/icons/custom.png'
+						: formValues.logo,
+				);
 			// Change the URL of the Tab
-			if ( oldData.url !== formValues.url ) view.setURL(formValues.url);
+			if (oldData.url !== formValues.url) view.setURL(formValues.url);
 			// Change the align of the Tab
-			if ( oldData.align !== formValues.align ) {
-				if ( formValues.align === 'left' ) {
+			if (oldData.align !== formValues.align) {
+				if (formValues.align === 'left') {
 					Ext.cq1('app-main').moveBefore(view, Ext.getCmp('tbfill'));
 				} else {
 					Ext.cq1('app-main').moveAfter(view, Ext.getCmp('tbfill'));
 				}
 			}
 			// Apply the JS Code of the Tab
-			let showNotify=false;
+			let showNotify = false;
 			const standard_form_names = [
-				 'custom_js'
-				,'custom_css_complex'
-				,'custom_css'
-				,'js_unread'
-				,'passive_event_listeners'
-				,'slowed_timers'
+				'custom_js',
+				'custom_css_complex',
+				'custom_css',
+				'js_unread',
+				'passive_event_listeners',
+				'slowed_timers',
 			];
 			for (form_name of standard_form_names) {
-				const form =  win.down('[name=' + form_name + ']');
+				const form = win.down('[name=' + form_name + ']');
 				if (form.isDirty()) {
 					showNotify = true;
 					break;
 				}
 			}
-			const ua_form_names = [
-				'os_override',
-				'userAgent',
-				'chrome_version'
-			];
+			const ua_form_names = ['os_override', 'userAgent', 'chrome_version'];
 			for (form_name of ua_form_names) {
-				const form =  win.down('[name=' + form_name + ']');
+				const form = win.down('[name=' + form_name + ']');
 				if (form.isDirty()) {
 					showNotify = true;
 					view.updateUserAgent();
@@ -100,10 +108,14 @@ Ext.define('HelloWorld.view.add.AddController', {
 				}
 			}
 
-			if ( showNotify ) {
-				Ext.Msg.confirm(locale['app.window[8]'].toUpperCase(), 'HelloWorld needs to reload the service to apply your changes. Do you want to do it now?', function( btnId ) {
-					if ( btnId === 'yes' ) view.reloadService();
-				});
+			if (showNotify) {
+				Ext.Msg.confirm(
+					locale['app.window[8]'].toUpperCase(),
+					'HelloWorld needs to reload the service to apply your changes. Do you want to do it now?',
+					function (btnId) {
+						if (btnId === 'yes') view.reloadService();
+					},
+				);
 			}
 
 			view.record = win.record;
@@ -112,39 +124,42 @@ Ext.define('HelloWorld.view.add.AddController', {
 			view.refreshUnreadCount();
 		} else {
 			// Format data
-			if ( win.record.get('url').indexOf('___') >= 0 ) {
-				formValues.url = formValues.cycleValue === '1' ? win.record.get('url').replace('___', formValues.url) : formValues.url;
+			if (win.record.get('url').indexOf('___') >= 0) {
+				formValues.url =
+					formValues.cycleValue === '1'
+						? win.record.get('url').replace('___', formValues.url)
+						: formValues.url;
 			}
 
 			const service = Ext.create('HelloWorld.model.Service', {
-				 type: win.record.get('id')
-				,logo: formValues.logo
-				,name: formValues.serviceName
-				,url: formValues.url
-				,align: formValues.align
-				,notifications: formValues.notifications
-				,muted: formValues.muted
-				,tabname: formValues.tabname
-				,displayTabUnreadCounter: formValues.displayTabUnreadCounter
-				,includeInGlobalUnreadCounter: formValues.includeInGlobalUnreadCounter
-				,trust: formValues.trust
-				,js_unread: formValues.js_unread
-				,custom_js: formValues.custom_js
-				,custom_css: formValues.custom_css
-				,custom_css_complex: formValues.custom_css_complex
-				,passive_event_listeners: formValues.passive_event_listeners
-				,slowed_timers: formValues.slowed_timers
-				,userAgent: formValues.userAgent
-				,os_override: formValues.os_override
-				,chrome_version: formValues.chrome_version
+				type: win.record.get('id'),
+				logo: formValues.logo,
+				name: formValues.serviceName,
+				url: formValues.url,
+				align: formValues.align,
+				notifications: formValues.notifications,
+				muted: formValues.muted,
+				tabname: formValues.tabname,
+				displayTabUnreadCounter: formValues.displayTabUnreadCounter,
+				includeInGlobalUnreadCounter: formValues.includeInGlobalUnreadCounter,
+				trust: formValues.trust,
+				js_unread: formValues.js_unread,
+				custom_js: formValues.custom_js,
+				custom_css: formValues.custom_css,
+				custom_css_complex: formValues.custom_css_complex,
+				passive_event_listeners: formValues.passive_event_listeners,
+				slowed_timers: formValues.slowed_timers,
+				userAgent: formValues.userAgent,
+				os_override: formValues.os_override,
+				chrome_version: formValues.chrome_version,
 			});
 			const service_store = Ext.getStore('Services');
 			service_store.add(service);
 			service_store.sync();
 
 			const tabData = {
-				 xtype: 'webview'
-				,id: 'tab_'+service.get('id')
+				xtype: 'webview',
+				id: 'tab_' + service.get('id'),
 				/*
 				,title: service.get('name')
 				,icon: service.get('logo')
@@ -154,33 +169,38 @@ Ext.define('HelloWorld.view.add.AddController', {
 				,notifications: formValues.notifications
 				,muted: formValues.muted
 				*/
-				,record: service
-				,tabConfig: {
-					service: service
-				}
+				record: service,
+				tabConfig: {
+					service: service,
+				},
 			};
 
-			if ( formValues.align === 'left' ) {
+			if (formValues.align === 'left') {
 				const tbfill = Ext.cq1('app-main').getTabBar().down('tbfill');
-				Ext.cq1('app-main').insert(Ext.cq1('app-main').getTabBar().items.indexOf(tbfill), tabData).show();
+				Ext.cq1('app-main')
+					.insert(
+						Ext.cq1('app-main').getTabBar().items.indexOf(tbfill),
+						tabData,
+					)
+					.show();
 			} else {
 				Ext.cq1('app-main').add(tabData).show();
 			}
 		}
 
 		win.close();
-	}
+	},
 
-	,onEnter(field, e) {
+	onEnter(field, e) {
 		const me = this;
 
-		if ( e.getKey() === e.ENTER && field.up('form').isValid() ) me.doSave();
-	}
+		if (e.getKey() === e.ENTER && field.up('form').isValid()) me.doSave();
+	},
 
-	,onShow(win) {
+	onShow(win) {
 		const me = this;
 
 		// Make focus to the name field
 		win.down('textfield[name="serviceName"]').focus(true, 100);
-	}
+	},
 });

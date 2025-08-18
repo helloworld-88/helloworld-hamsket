@@ -12,3 +12,284 @@
 		background-position: 0 0;
 	}
 }
+.update-icon {
+	width: 87px;
+	height: 16px;
+	position: absolute;
+	background-color: #fd1717;
+	border-radius: 3px;
+	margin-top: -17px;
+	font-size: 11px;
+	margin-left: 50px;
+	color: white;
+	text-align: center;
+}
+.update-title {
+	position: absolute;
+	margin: -17px 1px -6px 58px;
+	font-size: 12px;
+	color: red;
+	font-weight: 600;
+}
+.x-tab.x-tab-active.x-tab-default {
+	border-color: #b4e0ff;
+	background-color: #b4e0ff;
+}
+.x-tab-inner-default {
+	font: 400 11px/20px "alibaba";
+	color: #000000;
+	max-width: 100%;
+}
+.x-tab-icon-right > .x-tab-inner-default,
+.x-tab-icon-left > .x-tab-inner-default {
+	max-width: 65px;
+	min-width: 65px;
+}
+.x-tab-icon-left > .x-tab-icon-el-default,
+.x-tab-icon-right > .x-tab-icon-el-default {
+	width: 35px;
+	background-size: 100%;
+	height: 35px;
+	margin-top: -7px;
+}
+.x-tab-over.x-tab-default {
+	border-color: #deeafd;
+	background-color: #deeafd;
+}
+.x-tab.x-tab-active.x-tab-default {
+	border-color: #9cd4fd;
+	background-color: #9cd4fd;
+}
+.x-tab-default-top {
+	height: 60px;
+	width: 75px;
+	margin: 0 2px 0 2px !important;
+	background-color: #cfcfcf;
+}
+.x-tab-default-right {
+	height: 60px;
+	width: 75px;
+	margin: 2px 0 2px 0 !important;
+	background-color: #d7dee3;
+}
+.x-tab-default-bottom {
+	height: 60px;
+	width: 75px;
+	margin: 0 2px 0 2px !important;
+	background-color: #d7dee3;
+}
+.x-tab-default-left {
+	height: 60px;
+	width: 75px;
+	margin: 2px 0 2px 0 !important;
+	background-color: #d7dee3;
+}
+.x-tab-icon-el-default.x-tab-glyph {
+	font-size: 24px;
+	line-height: 24px;
+	color: #2e658e;
+	opacity: 0.5;
+}
+.x-tab-inner {
+	display: block;
+	vertical-align: middle;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.x-tab-bar-default {
+	background-color: #ffffff;
+}
+.x-tab-text.x-tab-icon-left > .x-tab-icon-el-default {
+	margin-right: 0px;
+}
+.x-tab-bar-top .x-tab-bar-strip {
+	position: relative !important;
+	margin-top: -2px !important;
+	z-index: 9999;
+}
+.x-tab-wrap {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	justify-content: space-around;
+}
+.x-title-rotate-right {
+	display: contents;
+	color: white;
+	font-size: 15px;
+	font-weight: 400;
+	writing-mode: tb-rl;
+	letter-spacing: 7px;
+	font-family: "alibaba";
+}
+.x-title-rotate-right > div {
+	top: 33vh;
+	margin: 0;
+	position: absolute !important;
+}
+.x-panel-header-default-vertical {
+	background-image: none;
+	background-color: #2e658e;
+}
+.x-panel-default-outer-border-trl {
+	border-top-color: #2e658e !important;
+	border-top-width: 1px !important;
+	border-bottom-color: #2e658e !important;
+	border-bottom-width: 1px !important;
+	border-left-color: #2e658e !important;
+	border-left-width: 1px !important;
+	border-right-color: #2e658e !important;
+	border-right-width: 1px !important;
+	background-image: none;
+	background-color: #2e658e;
+}
+.x-panel-default-outer-border-trl > div > div > div {
+	color: white;
+	text-align: center;
+	font-size: 15px;
+	font-weight: 400;
+}
+.x-panel-default-outer-border-tbl,
+.x-panel-default-outer-border-rbl,
+.x-panel-default-outer-border-trb {
+	border-top-color: #2e658e !important;
+	border-top-width: 1px !important;
+	border-bottom-color: #2e658e !important;
+	border-bottom-width: 1px !important;
+	border-left-color: #2e658e !important;
+	border-left-width: 1px !important;
+	border-right-color: #2e658e !important;
+	border-right-width: 1px !important;
+}
+.x-panel-default-outer-border-tbl,
+.x-panel-default-outer-border-trb {
+	overflow-x: hidden !important;
+}
+.x-tool-img.x-tool-expand-right,
+.x-tool-img.x-tool-collapse-right {
+	width: 18px;
+	height: 18px;
+	background-image: url(../resources/img/x-tool-expand-right.svg);
+}
+.x-tool-img.x-tool-collapse-left,
+.x-tool-img.x-tool-expand-left {
+	width: 18px;
+	height: 18px;
+	background-image: url(../resources/img/x-tool-expand-left.svg);
+}
+.x-tool-img.x-tool-collapse-top {
+	//width: 18px;
+	//height: 18px;
+	//background-image: url(../resources/img/x-tool-collapse-top.svg);
+	background-position: 0 -224px;
+}
+.x-tool-img.x-tool-expand-bottom {
+	//width: 18px;
+	//height: 18px;
+	//background-image: url(../resources/img/x-tool-expand-bottom.svg);
+	background-position: 0 -208px;
+}
+.x-tool-expand-top,
+.x-tool-collapse-top {
+	background-position: 0 0;
+}
+.x-tool-expand-bottom,
+.x-tool-collapse-bottom {
+	background-position: 0 0;
+}
+.x-panel-header-default .x-tool-img {
+	background-color: #f5f5f500 !important;
+}
+.x-tool-expand-right,
+.x-tool-collapse-right {
+	background-position: 0 0;
+}
+.x-tool-expand-left,
+.x-tool-collapse-left {
+	background-position: 0 0;
+}
+::-webkit-scrollbar {
+	width: 3px;
+	height: 5px;
+}
+::-webkit-scrollbar-thumb {
+	background-color: #a5a5a5;
+	border-radius: 2px;
+}
+.reply {
+	display: flex;
+	flex-direction: column;
+	padding: 5px;
+	margin-top: 5px;
+	border: 1px solid #cecece;
+}
+.reply-text {
+	font-size: 13px;
+	font-weight: 500;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	margin-top: 5px;
+}
+.reply-button {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin-top: 5px;
+}
+.reply-button > button {
+	margin-left: 5px;
+}
+.x-panel.x-docked.x-panel-default.x-docked-left.x-panel-docked-left.x-panel-default-docked-left.x-noborder-tbl.x-collapsed.x-panel-collapsed.x-panel-default-collapsed {
+	width: 30px !important;
+}
+.x-panel-header-default-vertical {
+	padding: 0 2px 0 2px !important;
+}
+.x-title-rotate-right > div {
+	font-size: 13px;
+}
+.x-title-rotate-none > div {
+	font-size: 13px;
+}
+.x-panel-header-default-horizontal {
+	padding: 3px 3px 3px 3px !important;
+}
+.x-panel-body.x-panel-body-default.x-docked-top.x-panel-body-docked-top.x-panel-body-default-docked-top.x-panel-body-default.x-panel-body-default-docked-top.x-noborder-t.x-panel-default-outer-border-rbl
+> div {
+	background-color: #e5e5e5;
+}
+.helloworld-utilTab .x-tab-default-top {
+	height: 25px;
+	width: 70px;
+}
+.helloworld-utilTab .x-tab-bar-horizontal > .x-tab-bar-body-default {
+	min-height: 0px;
+}
+.helloworld-utilTab .x-tab-button-default {
+	margin-top: -7px;
+}
+.contacts-row-height{
+	height: 50px; /* 设置单元格的高度 */
+	vertical-align: middle; /* 可选：垂直居中文本 */
+}
+.reply-row-height.x-grid-row{
+	height: 10px; /* 设置单元格的高度 */
+	vertical-align: middle; /* 可选：垂直居中文本 */
+}
+.contacts-info{
+	display: flex;
+	flex-direction: column;
+	line-height: 20px;
+}
+.x-tagfield {
+	height: calc(100% + 3px) !important;
+}
+.x-tab-wrap {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	justify-content: flex-start;
+	flex-direction: column;
+	align-items: center;
+}
