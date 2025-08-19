@@ -1,241 +1,273 @@
 /**
  * Default config for all webviews created
  */
-Ext.define('HelloWorld.ux.WebView',{
-	 extend: 'Ext.panel.Panel'
-	,xtype: 'webview'
+Ext.define('HelloWorld.ux.WebView', {
+	extend: 'Ext.panel.Panel',
+	xtype: 'webview',
 
-	,requires: [
-		 'HelloWorld.util.Format'
-		,'HelloWorld.util.Notifier'
-		,'HelloWorld.util.UnreadCounter'
-		,'HelloWorld.util.IconLoader'
-	]
+	requires: [
+		'HelloWorld.util.Format',
+		'HelloWorld.util.Notifier',
+		'HelloWorld.util.UnreadCounter',
+		'HelloWorld.util.IconLoader',
+	],
 
 	// private
-	,zoomLevel: 0
-	,currentUnreadCount: 0
-	,isReady: false
+	zoomLevel: 0,
+	currentUnreadCount: 0,
+	isReady: false,
 
 	// CONFIG
-	,hideMode: 'offsets'
-	,initComponent(config) {
+	hideMode: 'offsets',
+	initComponent(config) {
 		const me = this;
 
 		function getLocation(href) {
-			const match = href.match(/^(https?):\/\/([-.\w]*)(\/[^#?]*)(\?[^#]*|)(#.*|)$/);
-			return match && {
-				protocol: match[1],
-				host: match[2],
-				hostname: match[3],
-				port: match[4],
-				pathname: match[5],
-				search: match[6],
-				hash: match[7]
-			};
+			const match = href.match(
+				/^(https?):\/\/([-.\w]*)(\/[^#?]*)(\?[^#]*|)(#.*|)$/,
+			);
+			return (
+				match && {
+					protocol: match[1],
+					host: match[2],
+					hostname: match[3],
+					port: match[4],
+					pathname: match[5],
+					search: match[6],
+					hash: match[7],
+				}
+			);
 		}
 
 		// Allow Custom sites with self certificates
 		//if ( me.record.get('trust') ) ipc.send('allowCertificate', me.src);
 
 		Ext.apply(me, {
-			 items: me.webViewConstructor()
-			,title: me.record.get('tabname') ? Ext.String.htmlEncode(me.record.get('name')) : ''
-			,icon: me.record.get('type') === 'custom' ? (me.record.get('logo') === '' ? 'resources/icons/custom.png' : me.record.get('logo')) : 'resources/icons/'+me.record.get('logo')
-			,src: me.record.get('url')
-			,type: me.record.get('type')
-			,align: me.record.get('align')
-			,notifications: me.record.get('notifications')
-			,muted: me.record.get('muted')
-			,tabConfig: {
+			items: me.webViewConstructor(),
+			title: me.record.get('tabname')
+				? Ext.String.htmlEncode(me.record.get('name'))
+				: '',
+			icon:
+				me.record.get('type') === 'custom'
+					? me.record.get('logo') === ''
+						? 'resources/icons/custom.png'
+						: me.record.get('logo')
+					: 'resources/icons/' + me.record.get('logo'),
+			src: me.record.get('url'),
+			type: me.record.get('type'),
+			align: me.record.get('align'),
+			notifications: me.record.get('notifications'),
+			muted: me.record.get('muted'),
+			tabConfig: {
 				listeners: {
-					afterrender ( btn ) {
-						btn.el.on('contextmenu', function(e) {
+					afterrender(btn) {
+						btn.el.on('contextmenu', function (e) {
 							btn.showMenu('contextmenu');
 							e.stopEvent();
 						});
-					}
-					,scope: me
-				}
-				,clickEvent: ''
-				,style: !me.record.get('enabled') ? '-webkit-filter: grayscale(1)' : ''
-				,menu:  {
-					 plain: true
-					,items: [
+					},
+					scope: me,
+				},
+				clickEvent: '',
+				style: !me.record.get('enabled') ? '-webkit-filter: grayscale(1)' : '',
+				menu: {
+					plain: true,
+					items: [
 						{
-							 xtype: 'toolbar'
-							,items: [
+							xtype: 'toolbar',
+							items: [
 								{
-									 xtype: 'segmentedbutton'
-									,allowToggle: false
-									,flex: 1
-									,items: [
+									xtype: 'segmentedbutton',
+									allowToggle: false,
+									flex: 1,
+									items: [
 										{
-											 text: 'Back'
-											,glyph: 'XF053@FontAwesome'
-											,flex: 1
-											,scope: me
-											,handler: me.goBack
-										}
-										,{
-											 text: 'Forward'
-											,glyph: 'XF054@FontAwesome'
-											,iconAlign: 'right'
-											,flex: 1
-											,scope: me
-											,handler: me.goForward
-										}
-									]
-								}
-							]
-						}
-						,'-'
-						,{
-							 text: 'Zoom In'
-							,glyph: 'XF00E@FontAwesome'
-							,scope: me
-							,handler: me.zoomIn
-						}
-						,{
-							 text: 'Zoom Out'
-							,glyph: 'XF010@FontAwesome'
-							,scope: me
-							,handler: me.zoomOut
-						}
-						,{
-							 text: 'Reset Zoom'
-							,glyph: 'XF002@FontAwesome'
-							,scope: me
-							,handler: me.resetZoom
-						}
-						,'-'
-						,{
-							 text: locale['app.webview[0]']
-							,glyph: 'XF021@FontAwesome'
-							,scope: me
-							,handler: me.reloadService
-						}
-						,'-'
-						,{
-							 text: locale['app.webview[3]']
-							,glyph: 'XF121@FontAwesome'
-							,scope: me
-							,handler: me.toggleDevTools
-						}
-					]
-				}
-			}
-			,listeners: {
-				 afterrender: me.onAfterRender
-				,beforedestroy: me.onBeforeDestroy
-			}
+											text: 'Back',
+											glyph: 'XF053@FontAwesome',
+											flex: 1,
+											scope: me,
+											handler: me.goBack,
+										},
+										{
+											text: 'Forward',
+											glyph: 'XF054@FontAwesome',
+											iconAlign: 'right',
+											flex: 1,
+											scope: me,
+											handler: me.goForward,
+										},
+									],
+								},
+							],
+						},
+						'-',
+						{
+							text: 'Zoom In',
+							glyph: 'XF00E@FontAwesome',
+							scope: me,
+							handler: me.zoomIn,
+						},
+						{
+							text: 'Zoom Out',
+							glyph: 'XF010@FontAwesome',
+							scope: me,
+							handler: me.zoomOut,
+						},
+						{
+							text: 'Reset Zoom',
+							glyph: 'XF002@FontAwesome',
+							scope: me,
+							handler: me.resetZoom,
+						},
+						'-',
+						{
+							text: locale['app.webview[0]'],
+							glyph: 'XF021@FontAwesome',
+							scope: me,
+							handler: me.reloadService,
+						},
+						'-',
+						{
+							text: locale['app.webview[3]'],
+							glyph: 'XF121@FontAwesome',
+							scope: me,
+							handler: me.toggleDevTools,
+						},
+					],
+				},
+			},
+			listeners: {
+				afterrender: me.onAfterRender,
+				beforedestroy: me.onBeforeDestroy,
+			},
 		});
 
 		me.items.push(me.statusBarConstructor(true));
 
 		me.callParent(config);
-	}
+	},
 
-	,onBeforeDestroy() {
+	onBeforeDestroy() {
 		const me = this;
 
 		me.setUnreadCount(0);
-	}
+	},
 
-	,webViewConstructor( enabled ) {
+	webViewConstructor(enabled) {
 		const me = this;
 
 		let cfg;
 		enabled = enabled || me.record.get('enabled');
 
-		cfg = !enabled ? [{
-				 xtype: 'container'
-				,html: '<h3>Service Disabled</h3>'
-				,style: 'text-align:center;'
-				,padding: 100
-			}] : [{
-				 xtype: 'component'
-				,hideMode: 'offsets'
-				,autoRender: true
-				,autoShow: true
-				,autoEl: {
-					 tag: 'webview'
-					,src: me.record.get('url')
-					,style: 'width:100%;height:100%;visibility:visible;'
-					,partition: 'persist:' + me.record.get('type') + '_' + me.id.replace('tab_', '')
-					,allowtransparency: 'on'
-					,autosize: 'on'
-					,webpreferences: 'nativeWindowOpen=yes,spellcheck=yes,contextIsolation=no' //,nativeWindowOpen=true
-					,allowpopups: 'on'
-					//,disablewebsecurity: 'on' // Disabled because some services (Like Google Drive) dont work with this enabled
-					,userAgent: me.getUserAgent()
-					,preload: './resources/js/helloworld-service-api.js'
-				}
-			}];
+		cfg = !enabled
+			? [
+					{
+						xtype: 'container',
+						html: '<h3>Service Disabled</h3>',
+						style: 'text-align:center;',
+						padding: 100,
+					},
+				]
+			: [
+					{
+						xtype: 'component',
+						hideMode: 'offsets',
+						autoRender: true,
+						autoShow: true,
+						autoEl: {
+							tag: 'webview',
+							src: me.record.get('url'),
+							style: 'width:100%;height:100%;visibility:visible;',
+							partition:
+								'persist:' +
+								me.record.get('type') +
+								'_' +
+								me.id.replace('tab_', ''),
+							allowtransparency: 'on',
+							autosize: 'on',
+							webpreferences:
+								'nativeWindowOpen=yes,spellcheck=yes,contextIsolation=no', //,nativeWindowOpen=true
+							allowpopups: 'on',
+							//,disablewebsecurity: 'on' // Disabled because some services (Like Google Drive) dont work with this enabled
+							// ,userAgent: me.getUserAgent()
+							preload: './resources/js/helloworld-service-api.js',
+						},
+					},
+				];
 
 		return cfg;
-	}
+	},
 
-	,statusBarConstructor(floating) {
+	statusBarConstructor(floating) {
 		const me = this;
 
 		return {
-			 xtype: 'statusbar'
-			,hidden: true
-			,keep: false
-			,y: floating ? '-18px' : 'auto'
-			,height: 19
-			,dock: 'bottom'
-			,defaultText: '<i class="fa fa-check fa-fw" aria-hidden="true"></i> Ready'
-			,busyIconCls : ''
-			,busyText: '<i class="fa fa-circle-o-notch fa-spin fa-fw"></i> '+locale['app.webview[4]']
-			,items: [
+			xtype: 'statusbar',
+			hidden: true,
+			keep: false,
+			y: floating ? '-18px' : 'auto',
+			height: 19,
+			dock: 'bottom',
+			defaultText: '<i class="fa fa-check fa-fw" aria-hidden="true"></i> Ready',
+			busyIconCls: '',
+			busyText:
+				'<i class="fa fa-circle-o-notch fa-spin fa-fw"></i> ' +
+				locale['app.webview[4]'],
+			items: [
 				{
-					 xtype: 'tbtext'
-					,itemId: 'url'
-				}
-				,{
-					 xtype: 'button'
-					,glyph: 'XF00D@FontAwesome'
-					,scale: 'small'
-					,ui: 'decline'
-					,padding: 0
-					,scope: me
-					,hidden: floating
-					,handler: me.closeStatusBar
-					,tooltip: {
-						 text: 'Close statusbar until next time'
-						,mouseOffset: [0,-60]
-					}
-				}
-			]
+					xtype: 'tbtext',
+					itemId: 'url',
+				},
+				{
+					xtype: 'button',
+					glyph: 'XF00D@FontAwesome',
+					scale: 'small',
+					ui: 'decline',
+					padding: 0,
+					scope: me,
+					hidden: floating,
+					handler: me.closeStatusBar,
+					tooltip: {
+						text: 'Close statusbar until next time',
+						mouseOffset: [0, -60],
+					},
+				},
+			],
 		};
-	}
+	},
 
-	,onAfterRender() {
+	onAfterRender() {
 		const me = this;
 
-		if ( !me.record.get('enabled') ) return;
+		if (!me.record.get('enabled')) return;
 
 		const webview = me.getWebView();
 
 		// Notifications in Webview
-		me.setNotifications(localStorage.getItem('locked') || JSON.parse(localStorage.getItem('dontDisturb')) ? false : me.record.get('notifications'));
+		me.setNotifications(
+			localStorage.getItem('locked') ||
+				JSON.parse(localStorage.getItem('dontDisturb'))
+				? false
+				: me.record.get('notifications'),
+		);
 
 		// Show and hide spinner when is loading
-		webview.addEventListener("did-start-loading", function() {
+		webview.addEventListener('did-start-loading', function () {
 			console.info('Start loading...', me.src);
-			if ( !me.down('statusbar').closed || !me.down('statusbar').keep ) me.down('statusbar').show();
+			if (!me.down('statusbar').closed || !me.down('statusbar').keep)
+				me.down('statusbar').show();
 			me.down('statusbar').showBusy();
 		});
 
-		webview.addEventListener("did-stop-loading", function() {
-			me.down('statusbar').clearStatus({useDefaults: true});
-			if ( !me.down('statusbar').keep ) me.down('statusbar').hide();
+		webview.addEventListener('did-stop-loading', function () {
+			me.down('statusbar').clearStatus({ useDefaults: true });
+			if (!me.down('statusbar').keep) me.down('statusbar').hide();
 		});
 
-		webview.addEventListener("did-finish-load", function(e) {
-			HelloWorld.app.setTotalServicesLoaded( HelloWorld.app.getTotalServicesLoaded() + 1 );
+		webview.addEventListener('did-finish-load', function (e) {
+			HelloWorld.app.setTotalServicesLoaded(
+				HelloWorld.app.getTotalServicesLoaded() + 1,
+			);
 
 			// Apply saved zoom level
 			me.setZoomLevel(me.record.get('zoomLevel'));
@@ -253,57 +285,77 @@ Ext.define('HelloWorld.ux.WebView',{
 			// Block some Deep links to prevent that open its app (Ex: Slack)
 			if (['slack:'].includes(protocol)) return;
 			// Allow Deep links
-			if (!['http:', 'https:', 'about:'].includes(protocol)) return require('@electron/remote').shell.openExternal(url.href);
+			if (!['http:', 'https:', 'about:'].includes(protocol))
+				return require('@electron/remote').shell.openExternal(url.href);
 		});
 
-		webview.addEventListener('will-navigate', function(e, url) {
+		webview.addEventListener('will-navigate', function (e, url) {
 			e.preventDefault();
 		});
 
-		function JSApplyCSS()
-		{
-			if ( me.record ) {
+		function JSApplyCSS() {
+			if (me.record) {
 				let custom_css_complex = me.record.get('custom_css_complex');
 				if (custom_css_complex === true) {
-					let custom_css = Ext.getStore('ServicesList').getById(me.record.get('type')).get('custom_css');
+					let custom_css = Ext.getStore('ServicesList')
+						.getById(me.record.get('type'))
+						.get('custom_css');
 					custom_css = custom_css + me.record.get('custom_css');
-					if ( custom_css !== '' ) {
-						console.groupCollapsed(me.record.get('type').toUpperCase() + ' - Injected Custom CSS via JS');
+					if (custom_css !== '') {
+						console.groupCollapsed(
+							me.record.get('type').toUpperCase() +
+								' - Injected Custom CSS via JS',
+						);
 						console.info(me.type);
 						console.log(custom_css);
 						console.groupEnd();
 						let js_before = '{let mystyle=`';
-						let js_after = '`,mycss=document.createElement("style");mycss.type="text/css",mycss.styleSheet?mycss.styleSheet.cssText=mystyle:mycss.appendChild(document.createTextNode(mystyle));let myDocHead=document.head;null===myDocHead||myDocHead.helloworldStyled||(myDocHead.appendChild(mycss),myDocHead.helloworldStyled=!0);let myframes=document.getElementsByTagName("iframe");for(let myframe of myframes){let mydocument,mydochead=(myframe.contentDocument||myframe.contentWindow.document).head;if(null!==mydochead&&!mydochead.helloworldStyled){let myclonedcss=mycss.cloneNode(deep=!0);mydochead.appendChild(myclonedcss),mydochead.helloworldStyled=!0}}}';
+						let js_after =
+							'`,mycss=document.createElement("style");mycss.type="text/css",mycss.styleSheet?mycss.styleSheet.cssText=mystyle:mycss.appendChild(document.createTextNode(mystyle));let myDocHead=document.head;null===myDocHead||myDocHead.helloworldStyled||(myDocHead.appendChild(mycss),myDocHead.helloworldStyled=!0);let myframes=document.getElementsByTagName("iframe");for(let myframe of myframes){let mydocument,mydochead=(myframe.contentDocument||myframe.contentWindow.document).head;if(null!==mydochead&&!mydochead.helloworldStyled){let myclonedcss=mycss.cloneNode(deep=!0);mydochead.appendChild(myclonedcss),mydochead.helloworldStyled=!0}}}';
 						webview.executeJavaScript(js_before + custom_css + js_after);
 					}
 				}
 			}
 		}
 
-		webview.addEventListener("dom-ready", function(e) {
+		webview.addEventListener('dom-ready', function (e) {
 			me.isReady = true;
 			// Mute Webview
-			if ( me.record.get('muted') || localStorage.getItem('locked') || JSON.parse(localStorage.getItem('dontDisturb')) ) me.setAudioMuted(true, true);
+			if (
+				me.record.get('muted') ||
+				localStorage.getItem('locked') ||
+				JSON.parse(localStorage.getItem('dontDisturb'))
+			)
+				me.setAudioMuted(true, true);
 
 			let js_inject = '';
 			let css_inject = '';
 			// Injected code to detect new messages
-			if ( me.record ) {
+			if (me.record) {
 				let js_unread = me.record.get('js_unread');
 				if (!js_unread) {
-					js_unread += Ext.getStore('ServicesList').getById(me.record.get('type')).get('js_unread');
+					js_unread += Ext.getStore('ServicesList')
+						.getById(me.record.get('type'))
+						.get('js_unread');
 				}
-				if ( js_unread !== '' ) {
-					console.groupCollapsed(me.record.get('type').toUpperCase() + ' - JS Injected to Detect New Messages');
+				if (js_unread !== '') {
+					console.groupCollapsed(
+						me.record.get('type').toUpperCase() +
+							' - JS Injected to Detect New Messages',
+					);
 					console.info(me.type);
 					console.log(js_unread);
 					console.groupEnd();
 					js_inject += '{' + js_unread + '}';
 				}
-				let custom_js = Ext.getStore('ServicesList').getById(me.record.get('type')).get('custom_js');
+				let custom_js = Ext.getStore('ServicesList')
+					.getById(me.record.get('type'))
+					.get('custom_js');
 				custom_js += me.record.get('custom_js');
-				if ( custom_js !== '' ) {
-					console.groupCollapsed(me.record.get('type').toUpperCase() + ' - Injected Custom JS');
+				if (custom_js !== '') {
+					console.groupCollapsed(
+						me.record.get('type').toUpperCase() + ' - Injected Custom JS',
+					);
 					console.info(me.type);
 					console.log(custom_js);
 					console.groupEnd();
@@ -311,10 +363,14 @@ Ext.define('HelloWorld.ux.WebView',{
 				}
 				const custom_css_complex = me.record.get('custom_css_complex');
 				if (custom_css_complex === false) {
-					let custom_css = Ext.getStore('ServicesList').getById(me.record.get('type')).get('custom_css');
+					let custom_css = Ext.getStore('ServicesList')
+						.getById(me.record.get('type'))
+						.get('custom_css');
 					custom_css += me.record.get('custom_css');
-					if ( custom_css !== '' ) {
-						console.groupCollapsed(me.record.get('type').toUpperCase() + ' - Injected Custom CSS');
+					if (custom_css !== '') {
+						console.groupCollapsed(
+							me.record.get('type').toUpperCase() + ' - Injected Custom CSS',
+						);
 						console.info(me.type);
 						console.log(custom_css);
 						console.groupEnd();
@@ -322,71 +378,83 @@ Ext.define('HelloWorld.ux.WebView',{
 					}
 				}
 				// Use passive listeners by default
-				let passive_event_listeners = Ext.getStore('ServicesList').getById(me.record.get('type')).get('passive_event_listeners');
-				if (passive_event_listeners && me.record.get('passive_event_listeners'))
-				{
+				let passive_event_listeners = Ext.getStore('ServicesList')
+					.getById(me.record.get('type'))
+					.get('passive_event_listeners');
+				if (
+					passive_event_listeners &&
+					me.record.get('passive_event_listeners')
+				) {
 					/* 3rdparty: This uses npm 'default-passive-events' 1.0.10 inline. Link to license:
-					* https://github.com/zzarcon/default-passive-events/blob/master/LICENSE
-					* Modified to remove unnecessary event hooks.
-					* This should match behavior of Chrome >= 57.
-					*/
+					 * https://github.com/zzarcon/default-passive-events/blob/master/LICENSE
+					 * Modified to remove unnecessary event hooks.
+					 * This should match behavior of Chrome >= 57.
+					 */
 					const passive_event_listeners_code = `const eventListenerOptionsSupported=()=>{let supported=!1;try{const opts=Object.defineProperty({},"passive",{get(){supported=!0}});window.addEventListener("test",null,opts),window.removeEventListener("test",null,opts)}catch(e){}return supported},defaultOptions={passive:!0,capture:!1},supportedPassiveTypes=["scroll","wheel","touchstart","touchmove","mousewheel"],getDefaultPassiveOption=(passive,eventName)=>void 0!==passive?passive:-1!==supportedPassiveTypes.indexOf(eventName)&&defaultOptions.passive,getWritableOptions=options=>{const passiveDescriptor=Object.getOwnPropertyDescriptor(options,"passive");return passiveDescriptor&&!0!==passiveDescriptor.writable&&void 0===passiveDescriptor.set?Object.assign({},options):options},overwriteAddEvent=superMethod=>{EventTarget.prototype.addEventListener=function(type,listener,options){const usesListenerOptions="object"==typeof options&&null!==options,useCapture=usesListenerOptions?options.capture:options;options=usesListenerOptions?getWritableOptions(options):{},options.passive=getDefaultPassiveOption(options.passive,type),options.capture=void 0===useCapture?defaultOptions.capture:useCapture,superMethod.call(this,type,listener,options)},EventTarget.prototype.addEventListener._original=superMethod},supportsPassive=eventListenerOptionsSupported();if(supportsPassive){const addEvent=EventTarget.prototype.addEventListener;overwriteAddEvent(addEvent)}`;
 					js_inject += '{' + passive_event_listeners_code + '}';
 				}
 
 				// Use slowed timers by default
-				let slowed_timers = Ext.getStore('ServicesList').getById(me.record.get('type')).get('slowed_timers');
-				if (slowed_timers && me.record.get('slowed_timers'))
-				{
+				let slowed_timers = Ext.getStore('ServicesList')
+					.getById(me.record.get('type'))
+					.get('slowed_timers');
+				if (slowed_timers && me.record.get('slowed_timers')) {
 					const slowed_timers_code = `window.setTimeout=window.setTimeout;const __setTimeout=window.setTimeout;window.setTimeout=function(func,time, ...func_args){let a=time;return a<100&&(a=100),__setTimeout(func,a, ...func_args)};`;
 					js_inject += '{' + slowed_timers_code + '}';
 				}
 			}
 
 			// Prevent Title blinking (some services have) and only allow when the title have an unread regex match: "(3) Title"
-			if ( Ext.getStore('ServicesList').getById(me.record.get('type')).get('titleBlink') ) {
+			if (
+				Ext.getStore('ServicesList')
+					.getById(me.record.get('type'))
+					.get('titleBlink')
+			) {
 				const js_preventBlink = `const originalTitle=document.title;Object.defineProperty(document,"title",{configurable:!0,set(a){null===a.match(new RegExp("[(]([0-9•]+)[)][ ](.*)","g"))&&a!==originalTitle||(document.getElementsByTagName("title")[0].textContent=a)},get:()=>document.getElementsByTagName("title")[0].textContent});`;
 				js_inject += '{' + js_preventBlink + '}';
 			}
 
-
 			// Scroll always to top (bug)
 			js_inject += '{document.body.scrollTop=0;}';
 			// Handles Certificate Errors
-			me.getWebContents().then(webContents => {
-				webContents.on('certificate-error', (event, url, error, certificate, callback) => {
-					if (me.record.get('trust')) {
-						event.preventDefault();
-						callback(true);
-					} else {
-						callback(false);
-					}
-					me.down('statusbar').keep = true;
-					me.down('statusbar').show();
-					me.down('statusbar').setStatus({
-						text: '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Certification Warning'
-					});
-					me.down('statusbar').down('button').show();
-
+			me.getWebContents()
+				.then((webContents) => {
+					webContents.on(
+						'certificate-error',
+						(event, url, error, certificate, callback) => {
+							if (me.record.get('trust')) {
+								event.preventDefault();
+								callback(true);
+							} else {
+								callback(false);
+							}
+							me.down('statusbar').keep = true;
+							me.down('statusbar').show();
+							me.down('statusbar').setStatus({
+								text: '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Certification Warning',
+							});
+							me.down('statusbar').down('button').show();
+						},
+					);
+					return webContents;
+				})
+				.catch((error) => {
+					console.error(error);
 				});
-				return webContents;
-			}).catch(error => {
-				console.error(error);
-			});
 
 			webview.executeJavaScript(js_inject);
 			webview.insertCSS(css_inject);
 		});
 
-		webview.addEventListener('load-commit', function() {
+		webview.addEventListener('load-commit', function () {
 			JSApplyCSS();
 		});
 
-		webview.addEventListener('did-frame-finish-load', function() {
+		webview.addEventListener('did-frame-finish-load', function () {
 			JSApplyCSS();
 		});
 
-		webview.addEventListener('ipc-message', function(event) {
+		webview.addEventListener('ipc-message', function (event) {
 			const channel = event.channel;
 			switch (channel) {
 				case 'helloworld.setUnreadCount':
@@ -416,7 +484,7 @@ Ext.define('HelloWorld.ux.WebView',{
 			/**
 			 * Handles 'helloworld.setUnreadCount' messages.
 			 * Sets the badge text if the event contains an integer
-                         * or a '•' (indicating non-zero but unknown number of unreads) as first argument.
+			 * or a '•' (indicating non-zero but unknown number of unreads) as first argument.
 			 *
 			 * @param event
 			 */
@@ -443,7 +511,7 @@ Ext.define('HelloWorld.ux.WebView',{
 				if (Array.isArray(event.args) === true && event.args.length > 1) {
 					const direct = event.args[0];
 					const indirect = event.args[1];
-					const count = direct > 0 ? direct : (indirect > 0 ? '•' : 0);
+					const count = direct > 0 ? direct : indirect > 0 ? '•' : 0;
 
 					if (count === parseInt(count, 10) || count === '•') {
 						me.setUnreadCount(count);
@@ -457,44 +525,67 @@ Ext.define('HelloWorld.ux.WebView',{
 		/**
 		 * Register page title update event listener only for services that don't specify a js_unread
 		 */
-		if (Ext.getStore('ServicesList').getById(me.record.get('type')).get('js_unread') === '' &&
-			 me.record.get('js_unread') === '') {
-			webview.addEventListener("page-title-updated", function(e) {
+		if (
+			Ext.getStore('ServicesList')
+				.getById(me.record.get('type'))
+				.get('js_unread') === '' &&
+			me.record.get('js_unread') === ''
+		) {
+			webview.addEventListener('page-title-updated', function (e) {
 				let count = e.title.match(/\(([^)]+)\)/); // Get text between (...)
 				count = count ? count[1] : '0';
-				count = count === '•' ? count : Ext.isArray(count.match(/\d+/g)) ? count.match(/\d+/g).join("") : count.match(/\d+/g); // Some services have special characters. Example: (•)
+				count =
+					count === '•'
+						? count
+						: Ext.isArray(count.match(/\d+/g))
+							? count.match(/\d+/g).join('')
+							: count.match(/\d+/g); // Some services have special characters. Example: (•)
 				count = count === null ? '0' : count;
 
 				me.setUnreadCount(count);
 			});
 		}
 
-		webview.addEventListener('did-navigate', function( e ) {
-			if ( e.isMainFrame && me.record.get('type') === 'tweetdeck' ) Ext.defer(function() { webview.loadURL(e.newURL); }, 1000); // Applied a defer because sometimes is not redirecting. TweetDeck 2FA is an example.
+		webview.addEventListener('did-navigate', function (e) {
+			if (e.isMainFrame && me.record.get('type') === 'tweetdeck')
+				Ext.defer(function () {
+					webview.loadURL(e.newURL);
+				}, 1000); // Applied a defer because sometimes is not redirecting. TweetDeck 2FA is an example.
 		});
 
-		webview.addEventListener('update-target-url', function( url ) {
+		webview.addEventListener('update-target-url', function (url) {
 			me.down('statusbar #url').setText(url.url);
 		});
-	}
+	},
 
-	,setUnreadCount(newUnreadCount) {
+	setUnreadCount(newUnreadCount) {
 		const me = this;
 
-		if ( !isNaN(newUnreadCount) && (function(x) { return (x | 0) === x; })(parseFloat(newUnreadCount)) && me.record.get('includeInGlobalUnreadCounter') === true) {
-			HelloWorld.util.UnreadCounter.setUnreadCountForService(me.record.get('id'), newUnreadCount);
+		if (
+			!isNaN(newUnreadCount) &&
+			(function (x) {
+				return (x | 0) === x;
+			})(parseFloat(newUnreadCount)) &&
+			me.record.get('includeInGlobalUnreadCounter') === true
+		) {
+			HelloWorld.util.UnreadCounter.setUnreadCountForService(
+				me.record.get('id'),
+				newUnreadCount,
+			);
 		} else {
-			HelloWorld.util.UnreadCounter.clearUnreadCountForService(me.record.get('id'));
+			HelloWorld.util.UnreadCounter.clearUnreadCountForService(
+				me.record.get('id'),
+			);
 		}
 
 		me.setTabBadgeText(HelloWorld.util.Format.formatNumber(newUnreadCount));
 
 		me.doManualNotification(parseInt(newUnreadCount));
-	}
+	},
 
-	,refreshUnreadCount() {
+	refreshUnreadCount() {
 		this.setUnreadCount(this.currentUnreadCount);
-	}
+	},
 
 	/**
 	 * Dispatch manual notification if
@@ -505,127 +596,144 @@ Ext.define('HelloWorld.ux.WebView',{
 	 *
 	 * @param {int} count
 	 */
-	,doManualNotification(count) {
+	doManualNotification(count) {
 		const me = this;
 
-		if (Ext.getStore('ServicesList').getById(me.type).get('manual_notifications') &&
+		if (
+			Ext.getStore('ServicesList')
+				.getById(me.type)
+				.get('manual_notifications') &&
 			me.currentUnreadCount < count &&
 			me.record.get('notifications') &&
-			!JSON.parse(localStorage.getItem('dontDisturb'))) {
-				HelloWorld.util.Notifier.dispatchNotification(me, count);
+			!JSON.parse(localStorage.getItem('dontDisturb'))
+		) {
+			HelloWorld.util.Notifier.dispatchNotification(me, count);
 		}
 
 		me.currentUnreadCount = count;
-	}
+	},
 
 	/**
 	 * Sets the tab badge text depending on the service config param "displayTabUnreadCounter".
 	 *
 	 * @param {string} badgeText
 	 */
-	,setTabBadgeText(badgeText) {
+	setTabBadgeText(badgeText) {
 		const me = this;
 		if (me.record.get('displayTabUnreadCounter') === true) {
 			me.tab.setBadgeText(badgeText);
 		} else {
 			me.tab.setBadgeText('');
 		}
-	}
+	},
 
 	/**
 	 * Clears the unread counter for this view:
 	 * • clears the badge text
 	 * • clears the global unread counter
 	 */
-	,clearUnreadCounter() {
+	clearUnreadCounter() {
 		const me = this;
 		me.tab.setBadgeText('');
-		HelloWorld.util.UnreadCounter.clearUnreadCountForService(me.record.get('id'));
-	}
+		HelloWorld.util.UnreadCounter.clearUnreadCountForService(
+			me.record.get('id'),
+		);
+	},
 
-	,reloadService(btn) {
+	reloadService(btn) {
 		const me = this;
 		const webview = me.getWebView();
 
-		if ( me.record.get('enabled') ) {
+		if (me.record.get('enabled')) {
 			me.clearUnreadCounter();
 			webview.loadURL(me.src);
 		}
-	}
+	},
 
-	,toggleDevTools(btn) {
+	toggleDevTools(btn) {
 		const me = this;
 		const webview = me.getWebView();
 
-		if ( me.record.get('enabled')) {
+		if (me.record.get('enabled')) {
 			if (webview.isDevToolsOpened()) {
 				webview.closeDevTools();
 			} else {
 				webview.openDevTools();
 			}
 		}
-	}
+	},
 
-	,setURL(url) {
+	setURL(url) {
 		const me = this;
 		const webview = me.getWebView();
 
 		me.src = url;
 
-		if ( me.record.get('enabled') ) webview.loadURL(url);
-	}
+		if (me.record.get('enabled')) webview.loadURL(url);
+	},
 
-	,setAudioMuted(muted, calledFromDisturb) {
+	setAudioMuted(muted, calledFromDisturb) {
 		const me = this;
 		const webview = me.getWebView();
 
 		me.muted = muted;
 
-		if ( !muted && !calledFromDisturb && JSON.parse(localStorage.getItem('dontDisturb')) ) return;
+		if (
+			!muted &&
+			!calledFromDisturb &&
+			JSON.parse(localStorage.getItem('dontDisturb'))
+		)
+			return;
 
-		if ( me.record.get('enabled') ) webview.setAudioMuted(muted);
-	}
+		if (me.record.get('enabled')) webview.setAudioMuted(muted);
+	},
 
-	,closeStatusBar() {
+	closeStatusBar() {
 		const me = this;
 
 		me.down('statusbar').hide();
 		me.down('statusbar').closed = true;
 		me.down('statusbar').keep = false;
-	}
+	},
 
-	,setStatusBar(keep) {
+	setStatusBar(keep) {
 		const me = this;
 
 		me.removeDocked(me.down('statusbar'), true);
 
-		if ( keep ) {
+		if (keep) {
 			me.addDocked(me.statusBarConstructor(false));
 		} else {
 			me.add(me.statusBarConstructor(true));
 		}
 		me.down('statusbar').keep = keep;
-	}
+	},
 
-	,setNotifications(notification, calledFromDisturb) {
+	setNotifications(notification, calledFromDisturb) {
 		const me = this;
 		const webview = me.getWebView();
 
 		me.notifications = notification;
 
-		if ( notification && !calledFromDisturb && JSON.parse(localStorage.getItem('dontDisturb')) ) return;
+		if (
+			notification &&
+			!calledFromDisturb &&
+			JSON.parse(localStorage.getItem('dontDisturb'))
+		)
+			return;
 
-		if ( me.record.get('enabled') ) ipc.send('setServiceNotifications', webview.partition, notification);
-	}
+		if (me.record.get('enabled'))
+			ipc.send('setServiceNotifications', webview.partition, notification);
+	},
 
-	,setEnabled(enabled) {
+	setEnabled(enabled) {
 		const me = this;
 
 		me.clearUnreadCounter();
 
 		me.removeAll();
 		me.add(me.webViewConstructor(enabled));
-		if ( enabled ) {
+		if (enabled) {
 			me.resumeEvent('afterrender');
 			me.show();
 			me.tab.setStyle('-webkit-filter', 'grayscale(0)');
@@ -634,63 +742,64 @@ Ext.define('HelloWorld.ux.WebView',{
 			me.suspendEvent('afterrender');
 			me.tab.setStyle('-webkit-filter', 'grayscale(1)');
 		}
-	}
+	},
 
-	,goBack() {
+	goBack() {
 		const me = this;
 		const webview = me.getWebView();
 
-		if ( me.record.get('enabled') ) webview.goBack();
-	}
+		if (me.record.get('enabled')) webview.goBack();
+	},
 
-	,goForward() {
+	goForward() {
 		const me = this;
 		const webview = me.getWebView();
 
-		if ( me.record.get('enabled') ) webview.goForward();
-	}
-	,setZoomLevel(level)
-	{
-		this.getWebContents().then(webContents => {
-			webContents.zoomLevel = level;
-			return webContents;
-		}).catch(error => console.log(error));
-	}
+		if (me.record.get('enabled')) webview.goForward();
+	},
+	setZoomLevel(level) {
+		this.getWebContents()
+			.then((webContents) => {
+				webContents.zoomLevel = level;
+				return webContents;
+			})
+			.catch((error) => console.log(error));
+	},
 
-	,zoomIn() {
+	zoomIn() {
 		const me = this;
 
 		me.zoomLevel = me.zoomLevel + 1;
-		if ( me.record.get('enabled') ) {
+		if (me.record.get('enabled')) {
 			me.record.set('zoomLevel', me.zoomLevel);
 			me.setZoomLevel(me.zoomLevel);
 		}
-	}
+	},
 
-	,zoomOut() {
+	zoomOut() {
 		const me = this;
 
 		me.zoomLevel = me.zoomLevel - 1;
-		if ( me.record.get('enabled') ) {
+		if (me.record.get('enabled')) {
 			me.record.set('zoomLevel', me.zoomLevel);
 			me.setZoomLevel(me.zoomLevel);
 		}
-	}
+	},
 
-	,resetZoom() {
+	resetZoom() {
 		const me = this;
 
 		me.zoomLevel = 0;
-		if ( me.record.get('enabled') ) {
+		if (me.record.get('enabled')) {
 			me.record.set('zoomLevel', me.zoomLevel);
 			me.setZoomLevel(me.zoomLevel);
 		}
-	}
+	},
 
-	,getWebView() {
+	getWebView() {
 		return this.record.get('enabled') ? this.down('component').el.dom : false;
-	}
-	,getWebContents() {
+	},
+	getWebContents() {
 		const promise = new Promise((resolve, reject) => {
 			const webview = this.getWebView();
 			const webContents = () => {
@@ -702,49 +811,66 @@ Ext.define('HelloWorld.ux.WebView',{
 			if (this.record.get('enabled') && this.isReady) {
 				resolve(webContents());
 			} else {
-				webview.addEventListener("dom-ready", () => {
+				webview.addEventListener('dom-ready', () => {
 					resolve(webContents());
 				});
 			}
 		});
 		return promise;
-	}
-	,getUserAgent() {
+	},
+	getUserAgent() {
 		const me = this;
 		const user_platform = me.record.get('os_override');
-		const service_platform = Ext.getStore('ServicesList').getById(me.record.get('type')).get('os_override');
-		const platform = user_platform ? user_platform :
-								service_platform ? service_platform :
-									'';
+		const service_platform = Ext.getStore('ServicesList')
+			.getById(me.record.get('type'))
+			.get('os_override');
+		const platform = user_platform
+			? user_platform
+			: service_platform
+				? service_platform
+				: '';
 		const user_version = me.record.get('chrome_version');
-		const service_version = Ext.getStore('ServicesList').getById(me.record.get('type')).get('chrome_version');
-		const chrome_version = user_version ? user_version :
-									service_version ? service_version :
-										'';
-		const default_ua = `Mozilla/5.0` +
-		` (${me.getOSPlatform(platform)})` +
-		` AppleWebKit/537.36 (KHTML, like Gecko)` +
-		` Chrome/${me.getChromeVersion(chrome_version)} Safari/537.36`;
+		const service_version = Ext.getStore('ServicesList')
+			.getById(me.record.get('type'))
+			.get('chrome_version');
+		const chrome_version = user_version
+			? user_version
+			: service_version
+				? service_version
+				: '';
+		const default_ua =
+			`Mozilla/5.0` +
+			` (${me.getOSPlatform(platform)})` +
+			` AppleWebKit/537.36 (KHTML, like Gecko)` +
+			` Chrome/${me.getChromeVersion(chrome_version)} Safari/537.36`;
 		// NOTE: Keep just in case we need to go back to the basics.
 		// const default_ua = window.navigator.userAgent
 		// 					.replace(`Electron/${me.getElectronVersion()} `,'')
 		// 					.replace(`HelloWorld/${me.getAppVersion()} `, '');
-		const service_ua = Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent');
+		const service_ua = Ext.getStore('ServicesList')
+			.getById(me.record.get('type'))
+			.get('userAgent');
 		const user_ua = me.record.get('userAgent');
-		const ua = (platform || chrome_version) ? default_ua :
-						user_ua ? user_ua :
-							service_ua ? service_ua :
-								default_ua;
+		const ua =
+			platform || chrome_version
+				? default_ua
+				: user_ua
+					? user_ua
+					: service_ua
+						? service_ua
+						: default_ua;
 		return ua;
-	}
-	,updateUserAgent() {
+	},
+	updateUserAgent() {
 		const me = this;
-		me.getWebContents().then(webContents => {
-			webContents.setUserAgent(me.getUserAgent());
-			return webContents;
-		}).catch(error => console.error(error));
-	}
-	,getOSArch(platform) {
+		me.getWebContents()
+			.then((webContents) => {
+				webContents.setUserAgent(me.getUserAgent());
+				return webContents;
+			})
+			.catch((error) => console.error(error));
+	},
+	getOSArch(platform) {
 		const me = this;
 		const remote = require('@electron/remote');
 		platform = platform ? platform : remote.require('os').platform();
@@ -766,41 +892,43 @@ Ext.define('HelloWorld.ux.WebView',{
 				break;
 		}
 		return arch;
-	}
-	,getOSArchType() {
+	},
+	getOSArchType() {
 		let arch = require('@electron/remote').require('os').arch();
 
-		switch(arch) {
+		switch (arch) {
 			case 'x64':
 			case 'ia32':
 			case 'x32':
-				arch='Intel';
+				arch = 'Intel';
 				break;
 			case 'arm64':
 			case 'arm':
-				arch='ARM';
+				arch = 'ARM';
 				break;
 			case 'mips':
 			case 'mipsel':
-				arch='MIPS';
+				arch = 'MIPS';
 				break;
 			case 'ppc64':
 			case 'ppc':
-				arch='PPC';
+				arch = 'PPC';
 				break;
 			case 's390x':
 			case 's390':
-				arch='S390';
+				arch = 'S390';
 				break;
 			default:
-				arch='Unknown';
+				arch = 'Unknown';
 				break;
 		}
 		return arch;
-	}
-	,getOSPlatform(platform) {
+	},
+	getOSPlatform(platform) {
 		const me = this;
-		platform = platform ? platform : require('@electron/remote').require('os').platform();
+		platform = platform
+			? platform
+			: require('@electron/remote').require('os').platform();
 		switch (platform) {
 			case 'win32':
 				platform = `${me.getOSRelease(platform)}; ${me.getOSArch(platform)}`;
@@ -821,53 +949,55 @@ Ext.define('HelloWorld.ux.WebView',{
 				platform = `X11; ${platform} ${me.getOSArch(platform)}`;
 		}
 		return platform;
-	}
-	,isWindows(platform) {
-		platform = platform ? platform : require('@electron/remote').require('os').platform();
+	},
+	isWindows(platform) {
+		platform = platform
+			? platform
+			: require('@electron/remote').require('os').platform();
 		return platform === 'win32';
-	}
-	,isMac(platform) {
-		platform = platform ? platform : require('@electron/remote').require('os').platform();
+	},
+	isMac(platform) {
+		platform = platform
+			? platform
+			: require('@electron/remote').require('os').platform();
 		return platform === 'darwin';
-	}
-	,is32bit() {
+	},
+	is32bit() {
 		const arch = require('@electron/remote').require('os').arch();
-		if (arch === 'ia32' || arch === 'x32')
-			return true;
-		else
-			return false;
-	}
-	,getOSRelease(platform) {
+		if (arch === 'ia32' || arch === 'x32') return true;
+		else return false;
+	},
+	getOSRelease(platform) {
 		const me = this;
 		const remote = require('@electron/remote');
 		if (me.isWindows(platform)) {
-			if (platform)
-			{
-				return "Windows NT 10.0";
+			if (platform) {
+				return 'Windows NT 10.0';
 			} else {
-				return remote.require('os').release().match(/([0-9]+\.[0-9]+)/)[0];
+				return remote
+					.require('os')
+					.release()
+					.match(/([0-9]+\.[0-9]+)/)[0];
 			}
-		}
-		else if (me.isMac(platform)) {
+		} else if (me.isMac(platform)) {
 			return remote.require('os').release().split('.').join('_');
 		} else {
 			return remote.require('os').release();
 		}
-	}
-	,getChromeVersion(version) {
+	},
+	getChromeVersion(version) {
 		return version || require('@electron/remote').process.versions['chrome'];
-	}
-	,getElectronVersion() {
+	},
+	getElectronVersion() {
 		return require('@electron/remote').process.versions['electron'];
-	}
-	,getAppVersion() {
+	},
+	getAppVersion() {
 		return require('@electron/remote').app.getVersion();
-	}
-	,blur() {
+	},
+	blur() {
 		this.getWebView().blur();
-	}
-	,focus()
-	{
+	},
+	focus() {
 		this.getWebView().focus();
-	}
+	},
 });

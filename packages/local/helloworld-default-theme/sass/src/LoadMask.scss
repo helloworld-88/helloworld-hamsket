@@ -36,7 +36,7 @@
 	background-color: #b4e0ff;
 }
 .x-tab-inner-default {
-	font: 400 11px/20px "alibaba";
+	font: 400 11px/20px 'alibaba';
 	color: #000000;
 	max-width: 100%;
 }
@@ -53,36 +53,36 @@
 	margin-top: -5px;
 }
 .x-tab-over.x-tab-default {
-	border-color: #EAEAEA;
-	background-color: #EAEAEA;
+	border-color: #eaeaea;
+	background-color: #eaeaea;
 }
 .x-tab.x-tab-active.x-tab-default {
-	border-color: #D3D3D3;
-	background-color: #D3D3D3;
+	border-color: #d3d3d3;
+	background-color: #d3d3d3;
 }
 .x-tab-default-top {
 	height: 60px;
 	width: 75px;
 	margin: 0 2px 0 2px !important;
-	background-color: #F7F7F7;
+	background-color: #f7f7f7;
 }
 .x-tab-default-right {
 	height: 60px;
 	width: 75px;
 	margin: 2px 0 2px 0 !important;
-	background-color: #F7F7F7;
+	background-color: #f7f7f7;
 }
 .x-tab-default-bottom {
 	height: 60px;
 	width: 75px;
 	margin: 0 2px 0 2px !important;
-	background-color: #F7F7F7;
+	background-color: #f7f7f7;
 }
 .x-tab-default-left {
 	height: 60px;
 	width: 75px;
 	margin: 0 0 0 0 !important;
-	background-color: #F7F7F7;
+	background-color: #f7f7f7;
 	border-top-left-radius: 0 !important;
 	border-bottom-left-radius: 0 !important;
 }
@@ -122,7 +122,7 @@
 	font-weight: 400;
 	writing-mode: tb-rl;
 	letter-spacing: 7px;
-	font-family: "alibaba";
+	font-family: 'alibaba';
 }
 .x-title-rotate-right > div {
 	top: 33vh;
@@ -258,7 +258,7 @@
 	padding: 3px 3px 3px 3px !important;
 }
 .x-panel-body.x-panel-body-default.x-docked-top.x-panel-body-docked-top.x-panel-body-default-docked-top.x-panel-body-default.x-panel-body-default-docked-top.x-noborder-t.x-panel-default-outer-border-rbl
-> div {
+	> div {
 	background-color: #e5e5e5;
 }
 .helloworld-utilTab .x-tab-default-top {
@@ -271,15 +271,15 @@
 .helloworld-utilTab .x-tab-button-default {
 	margin-top: -7px;
 }
-.contacts-row-height{
+.contacts-row-height {
 	height: 50px; /* 设置单元格的高度 */
 	vertical-align: middle; /* 可选：垂直居中文本 */
 }
-.reply-row-height.x-grid-row{
+.reply-row-height.x-grid-row {
 	height: 10px; /* 设置单元格的高度 */
 	vertical-align: middle; /* 可选：垂直居中文本 */
 }
-.contacts-info{
+.contacts-info {
 	display: flex;
 	flex-direction: column;
 	line-height: 20px;
@@ -295,6 +295,12 @@
 	flex-direction: column;
 	align-items: center;
 }
-.x-tab-bar-default-left>.x-tab-bar-body-default {
-	padding: 0 3px 6px 0;
+.x-tab-bar-default-left > .x-tab-bar-body-default {
+	padding: 0 3px 0 0;
+}
+.x-toolbar-main {
+	background-color: #2e658e;
+}
+.x-grid-with-row-lines .x-grid-item.x-grid-item-over{
+	background-color: #eaeaea;
 }

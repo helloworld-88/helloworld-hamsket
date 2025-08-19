@@ -1,7 +1,7 @@
 {
-  "id": "whatsapp_a",
-  "logo": "whatsapp_a.png",
-  "name": "WhatsApp绿色版",
+  "id": "whatsapp",
+  "logo": "whatsapp.png",
+  "name": "WhatsApp",
   "url": "https://web.whatsapp.com",
   "type": "messaging",
   "allow_popups": false,
